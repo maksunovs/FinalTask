@@ -35,10 +35,7 @@ public class AddTrackToCartCommand implements Command {
         OrderTrackService orderTrackService = new OrderTrackServiceImpl();
         ResponseContent responseContent;
         if(order.isPresent()&&track.isPresent()){
-            BigDecimal trackPrice = track.get().getPrice();
-            BigDecimal oldValue = order.get().getValue();
-            BigDecimal newValue = oldValue.add(trackPrice);
-            orderTrackService.save(new OrderTrack(order.get().getId(),trackId),newValue);
+            orderTrackService.save(new OrderTrack(order.get().getId(),trackId));
             responseContent = new ResponseContent(ResponseType.REDIRECT,request.getHeader(REFERER));
         }else{
             responseContent = new ResponseContent(ResponseType.REDIRECT,"music?command=home");

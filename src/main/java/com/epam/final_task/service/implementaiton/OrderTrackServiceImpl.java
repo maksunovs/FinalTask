@@ -17,7 +17,7 @@ public class OrderTrackServiceImpl implements OrderTrackService {
 
     private static final Logger LOGGER = Logger.getLogger(OrderTrackServiceImpl.class);
 
-    public void save(OrderTrack orderTrack, BigDecimal newValue) throws ServiceException {
+    public void save(OrderTrack orderTrack) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             OrderTrackDao orderTrackDao = factory.getOrderTrackDao();
             orderTrackDao.save(orderTrack);

@@ -12,7 +12,6 @@ public class OrderBuilder implements Builder<Order>{
     public Order build(ResultSet resultSet) throws DaoException, SQLException {
         int id = resultSet.getInt("id");
         int userId = resultSet.getInt("user_id");
-        BigDecimal value = resultSet.getBigDecimal("value");
-        return new Order(id,userId,value);
+        return new Order(id,userId);
     }
 }

@@ -27,8 +27,8 @@
                    pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s)+"/>
             <button id="add_button" type="submit" title="new playlist"><fmt:message key="button.add"/></button>
         </form>
-        <br/>
     </c:if>
+    <br/><br/>
     <c:forEach var="playlist" items="${playlists}">
         <button id="open_button"
                 onclick="location.href='music?command=view_playlist&id=${playlist.getId()}'"><c:out

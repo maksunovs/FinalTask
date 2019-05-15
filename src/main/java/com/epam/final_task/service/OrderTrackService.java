@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface OrderTrackService {
 
-    void save(OrderTrack orderTrack, BigDecimal newValue) throws ServiceException;
+    void save(OrderTrack orderTrack) throws ServiceException;
 
 
     Optional<OrderTrack> findByOrderIdAndTrackId(int orderId, int trackId) throws ServiceException;

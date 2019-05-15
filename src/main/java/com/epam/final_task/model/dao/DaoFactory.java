@@ -5,6 +5,7 @@ import com.epam.final_task.model.dao.connection.ConnectionPool;
 import com.epam.final_task.model.dao.exception.ConnectionException;
 import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.dao.implementation.*;
+import com.epam.final_task.util.Hasher;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 public class DaoFactory implements AutoCloseable {
     private Connection connection;
 
-    public DaoFactory() throws ConnectionException {
+    public DaoFactory()  {
         this.connection = ConnectionPool.getInstance().getConnection();
     }
 
@@ -33,7 +34,7 @@ public class DaoFactory implements AutoCloseable {
     }
 
     public UserDao getUserDAO() {
-        return new UserDao(connection, new UserBuilder());
+        return new UserDao(connection, new UserBuilder(), new Hasher());
     }
 
     public TrackDao getTrackDao() {
