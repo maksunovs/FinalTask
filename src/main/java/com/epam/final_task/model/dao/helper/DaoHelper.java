@@ -7,7 +7,7 @@ public class DaoHelper {
         StringBuilder builder = new StringBuilder();
         builder.append("INSERT INTO ");
         builder.append(tableName);
-        builder.append("  (");
+        builder.append(" (");
         int counter=0;
         for (Map.Entry<String, Object> pair : map.entrySet()) {
             builder.append(pair.getKey());
