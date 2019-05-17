@@ -30,7 +30,6 @@ public class UserDao extends AbstractDao<User> {
 
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
         String hash = hasher.hash(password);
-        System.out.println(hash);
         return executeQueryAsSingleResult(FIND_BY_LOGIN_AND_PASSWORD, login, hash);
     }
 

@@ -22,6 +22,12 @@ import java.util.Optional;
 
 public class ViewArtistCommand implements Command {
 
+    private final TrackStateInitializer initializer;
+
+    public ViewArtistCommand(TrackStateInitializer initializer) {
+        this.initializer = initializer;
+    }
+
     private static final String CONTENT_PATH = "WEB-INF/view/artist.jsp";
 
     @Override
@@ -35,7 +41,6 @@ public class ViewArtistCommand implements Command {
         if (artist.isPresent()) {
             TrackService trackService = new TrackServiceImpl();
             List<Track> tracks = trackService.findByArtistId(id);
-            TrackStateInitializer initializer = new TrackStateInitializer();
             if (user.getRole() == Role.CLIENT) {
                initializer.initializeStates(tracks,(Client)user);
             }

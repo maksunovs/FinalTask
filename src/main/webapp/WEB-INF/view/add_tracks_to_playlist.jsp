@@ -26,7 +26,7 @@
             value="${playlist.getTitle()}"/></span>
     <br/><br/>
     <c:forEach var="audiotrack" items="${audiotracks}">
-        <div style="display: flex; height: 35px;">
+        <div style="display: flex; height: 37px;">
             <div class="track">
                 <ul>
                     <li class="track info"><a href="#"><c:out value="${audiotrack.getArtist()}"/></a></li>

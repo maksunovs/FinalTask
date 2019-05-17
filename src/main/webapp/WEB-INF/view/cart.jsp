@@ -23,7 +23,7 @@
     <span style="font-size: 20px;  border-bottom: 1px solid; border-color: #ccc;"><fmt:message key="text.cart"/></span>
     <br/><br/>
     <c:forEach var="track" items="${tracks}">
-    <div style="display: flex; height: 35px; ">
+    <div style="display: flex; height: 37px; ">
         <div class="track">
             <ul>
                 <li class="track info"><a href="#"><c:out value="${track.getArtist()}"/></a></li>
@@ -38,12 +38,25 @@
     </div>
     </c:forEach>
     <br/>
-    <div style="width: 90%">
-        <button style=" padding: 4px 10px; margin-left: 10px;" id="add_button" onclick="location.href='music?command=pay_order'"><fmt:message key="button.pay"/></button>
-        <span><ctg:currencystamp value="${value}"/></span>
+    <div style="width: 90%; display: flex;">
+        <form action="music?command=pay_order" method="get">
+
+        <button value="${value}" style=" padding: 4px 10px; margin-left: 10px;" id="add_button" onclick=check(this)><fmt:message key="button.pay"/></button>
+        </form>
+        <div style="padding: 4px 20px;"><ctg:currencystamp value="${value}"/></div>
     </div>
 
 </div>
     <jsp:include page="footer.jsp"/>
 </body>
 </html>
+<script>
+    function check(obj){
+        var price= obj.value;
+        var cash = ${user.getCash()};
+        if(price>cash){
+            obj.setCustomValidity("<fmt:message key="notification.text"/>");
+        }
+    }
+
+</script>

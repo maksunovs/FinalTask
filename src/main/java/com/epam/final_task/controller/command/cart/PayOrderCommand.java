@@ -36,7 +36,6 @@ public class PayOrderCommand implements Command {
         if (order.isPresent()) {
             TrackService trackService = new TrackServiceImpl();
             List<Track> tracks = trackService.findOrderedTracks(order.get().getId());
-            System.out.println(tracks.size());
             for(Track track: tracks){
                 value = value.add(track.getPrice());
             }

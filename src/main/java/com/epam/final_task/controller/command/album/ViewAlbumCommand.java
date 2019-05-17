@@ -22,6 +22,12 @@ import java.util.Optional;
 
 public class ViewAlbumCommand implements Command {
 
+    private final TrackStateInitializer initializer;
+
+    public ViewAlbumCommand(TrackStateInitializer initializer) {
+        this.initializer = initializer;
+    }
+
     private static final String CONTENT_PATH = "WEB-INF/view/album.jsp";
 
     @Override
@@ -39,7 +45,6 @@ public class ViewAlbumCommand implements Command {
             if (album.isPresent()) {
                 TrackService trackService = new TrackServiceImpl();
                 List<Track> tracks = trackService.findByAlbumId(albumId);
-                TrackStateInitializer initializer = new TrackStateInitializer();
                 if (user.getRole() == Role.CLIENT) {
                     initializer.initializeStates(tracks,(Client)user);
                 }

@@ -22,16 +22,18 @@ import com.epam.final_task.controller.command.track.admin.*;
 import com.epam.final_task.controller.command.track.client.BuyTrackCommand;
 import com.epam.final_task.controller.command.track.client.RemoveTrackFromCartCommand;
 import com.epam.final_task.controller.command.track.client.ShowPurchasedTracksCommand;
+import com.epam.final_task.util.RequestParameterValidator;
+import com.epam.final_task.util.TrackStateInitializer;
 
 public class CommandFactory {
     public static Command getCommand(String commandName) {
         Command command = null;
         switch (commandName) {
             case "home":
-                command = new ShowHomePageCommand();
+                command = new ShowHomePageCommand(new TrackStateInitializer());
                 break;
             case "login":
-                command = new LoginCommand();
+                command = new LoginCommand(new RequestParameterValidator());
                 break;
             case "add_audiotrack":
                 command = new AddTrackCommand();
@@ -46,7 +48,7 @@ public class CommandFactory {
                 command = new ViewArtistsListCommand();
                 break;
             case "view_artist":
-                command = new ViewArtistCommand();
+                command = new ViewArtistCommand(new TrackStateInitializer());
                 break;
             case "add_artist":
                 command = new AddArtistCommand();
@@ -61,7 +63,7 @@ public class CommandFactory {
                 command = new ViewPlaylistsListCommand();
                 break;
             case "view_playlist":
-                command = new ViewPlaylistCommand();
+                command = new ViewPlaylistCommand(new TrackStateInitializer());
                 break;
             case "save_playlist":
                 command = new SavePlaylistCommand();
@@ -85,7 +87,7 @@ public class CommandFactory {
                 command = new ViewAlbumsListCommand();
                 break;
             case "view_album":
-                command = new ViewAlbumCommand();
+                command = new ViewAlbumCommand(new TrackStateInitializer());
                 break;
             case "edit_album":
                 command = new EditAlbumCommand();

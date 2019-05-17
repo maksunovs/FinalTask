@@ -37,7 +37,7 @@
 
     </c:if><br/><br/>
     <c:forEach var="track" items="${tracks}">
-        <div style="display: flex; height: 35px; ">
+        <div style="display: flex; height: 37px; ">
             <div class="track">
                 <ul>
                     <li class="track info"><a href="#"><c:out value="${track.getArtist()}"/></a></li>

@@ -1,6 +1,7 @@
 package com.epam.final_task.model.dao.connection;
 
 import com.epam.final_task.model.dao.exception.ConnectionException;
+import com.epam.final_task.util.PropertyLoader;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -30,7 +31,7 @@ public class ConnectionPool {
     }
 
     private void init() {
-        ConnectionFactory factory = new ConnectionFactory();
+        ConnectionFactory factory = new ConnectionFactory(new PropertyLoader());
         for (int i = 0; i < 10; i++) {
             Connection connection = factory.createConnection();
             pool.add(connection);

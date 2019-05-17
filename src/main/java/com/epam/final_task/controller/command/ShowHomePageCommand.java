@@ -19,6 +19,12 @@ import java.util.Optional;
 public class ShowHomePageCommand implements Command {
     private static final String CONTENT_PATH = "WEB-INF/view/home.jsp";
 
+    private final TrackStateInitializer initializer;
+
+    public ShowHomePageCommand(TrackStateInitializer initializer) {
+        this.initializer = initializer;
+    }
+
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String genre = request.getParameter("genre");
@@ -29,7 +35,6 @@ public class ShowHomePageCommand implements Command {
         } else {
             tracks = trackService.findAll();
         }
-        TrackStateInitializer initializer = new TrackStateInitializer();
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user.getRole() == Role.CLIENT) {

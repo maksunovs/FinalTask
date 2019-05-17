@@ -16,11 +16,11 @@ public class ConnectionFactory {
     private final String user;
     private final String password;
 
-    public ConnectionFactory() throws ConnectionException {
+
+    public ConnectionFactory(PropertyLoader propertyLoader) throws ConnectionException {
         try {
             Class.forName(DRIVER);
-            PropertyLoader loader = new PropertyLoader();
-            Properties properties = loader.load(PROPERTIES_PATH);
+            Properties properties = propertyLoader.load(PROPERTIES_PATH);
             url = properties.getProperty("url");
             user = properties.getProperty("user");
             password = properties.getProperty("password");

@@ -22,6 +22,12 @@ public class ViewPlaylistCommand implements Command {
     private static final String CONTENT_PATH = "WEB-INF/view/playlist.jsp";
     private static final String REDIRECT_PATH = "music?command=view_playlists";
 
+    private final TrackStateInitializer initializer;
+
+    public ViewPlaylistCommand(TrackStateInitializer initializer) {
+        this.initializer = initializer;
+    }
+
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
@@ -33,7 +39,6 @@ public class ViewPlaylistCommand implements Command {
         List<Track> tracks = trackService.findByPlaylistId(id);
         ResponseContent responseContent;
         if (playlist.isPresent()) {
-            TrackStateInitializer initializer = new TrackStateInitializer();
             if (user.getRole() == Role.CLIENT) {
                 initializer.initializeStates(tracks,(Client)user);
             }

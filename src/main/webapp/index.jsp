@@ -1,6 +1,6 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <fmt:setLocale value="${sessionScope.language.name().toLowerCase()}"/>
 <fmt:setBundle basename="locale"/>
 <!DOCTYPE html>
@@ -14,16 +14,18 @@
             padding: 8% 0 0;
             margin: auto;
         }
+
         .form {
             position: relative;
             z-index: 1;
             background: #FFFFFF;
             max-width: 360px;
             margin: 0 auto 100px;
-            padding: 45px;
+            padding: 45px 45px 10px 45px;
             text-align: center;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         }
+
         .form input {
             font-family: "Roboto", sans-serif;
             outline: 0;
@@ -35,6 +37,7 @@
             box-sizing: border-box;
             font-size: 14px;
         }
+
         .form button {
             font-family: "Roboto", sans-serif;
             text-transform: uppercase;
@@ -47,7 +50,8 @@
             font-size: 14px;
             cursor: pointer;
         }
-        .form button:hover,.form button:active,.form button:focus {
+
+        .form button:hover, .form button:active, .form button:focus {
             background: #ff4b00;
         }
 
@@ -58,6 +62,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
         footer {
             text-align: center;
             padding: 14px;
@@ -65,17 +70,19 @@
             position: absolute;
             bottom: 0;
             background: none;
-            width:96%;
+            width: 96%;
         }
 
-        footer a{
+        footer a {
             text-decoration: none;
             color: white;
         }
-        footer a:hover{
+
+        footer a:hover {
             color: #ff6200;
         }
-        .current{
+
+        .current {
             color: #ff6200;
         }
     </style>
@@ -84,10 +91,19 @@
 <div class="login-page">
     <div class="form">
         <form method="post" action="music?command=login">
-            <input type="text" name="login"  placeholder="<fmt:message key="form.authorization.input.login"/>" required/>
-            <input type="password" name="password" placeholder="<fmt:message key="form.authorization.input.password"/>" required/>
+            <input type="text" name="login" placeholder="<fmt:message key="form.authorization.input.login"/>" required/>
+            <input type="password" name="password" placeholder="<fmt:message key="form.authorization.input.password"/>"
+                   required/>
             <button type="submit"><fmt:message key="button.login"/></button>
         </form>
+
+        <div style="margin-top:15px; height:35px; color: red;">
+            <c:if test="${not empty requestScope.login}">
+                <fmt:message
+                        key="text.unableToLogin"/>
+            </c:if>
+        </div>
+
     </div>
 </div>
 <footer>
