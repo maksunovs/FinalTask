@@ -17,7 +17,7 @@
             <li><a href="music?command=cart"><fmt:message key="button.cart"/></a></li>
             <li style="padding: 5px 10px;"><fmt:message key="text.cash"/>: <ctg:currencystamp value="${user.getCash()}"/>
                 <button id="top_up_button" onclick="location.href='music?command=top_up_balance_page'"
-                        title="Top up balance"><i class='fas fa-plus'></i></button><br/>
+                        title="<fmt:message key="button.title.topUpBalance"/>"><i class='fas fa-plus'></i></button><br/>
                 <fmt:message key="text.currency"/>:
                 <button class="currency" onclick="location.href='music?command=change_currency&currency=USD'">USD</button>
                 <button class="currency" onclick="location.href='music?command=change_currency&currency=BYN'">BYN</button>
@@ -33,7 +33,7 @@
         <c:if test="${user.getRole().getValue()=='client'}">
           <div style="color: white; padding: 6px;"><fmt:message key="text.cash"/>: <c:out value="${user.getCash()}"/>$
                 <button id="top_up_button" onclick="location.href='music?command=top_up_balance_page'"
-                        title="Top up balance"><i class='fas fa-plus'></i></button><br/>
+                        title="<fmt:message key="button.title.topUpBalance"/>"><i class='fas fa-plus'></i></button><br/>
               <fmt:message key="text.currency"/>:
               <button class="currency" onclick="location.href='music?command=change_currency&currency=USD'">USD</button>
               <button class="currency" onclick="location.href='music?command=change_currency&currency=USD'">BYN</button>

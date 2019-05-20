@@ -7,6 +7,7 @@ import com.epam.final_task.model.entity.Artist;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.AlbumService;
 import com.epam.final_task.service.ArtistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.AlbumServiceImpl;
 import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
@@ -25,8 +26,9 @@ public class ViewAlbumsListCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int artistId = Integer.parseInt(request.getParameter("artist_id"));
-        AlbumService albumService = new AlbumServiceImpl();
-        ArtistService artistService = new ArtistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        AlbumService albumService =factory.getAlbumService();
+        ArtistService artistService = factory.getArtistService();
         Optional<Artist> artist = artistService.findById(artistId);
         ResponseContent responseContent;
         if (artist.isPresent()) {

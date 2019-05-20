@@ -5,6 +5,7 @@ import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.model.entity.User;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.implementaiton.UserServiceImpl;
@@ -26,7 +27,8 @@ public class BuyTrackCommand implements Command {
         int trackId = Integer.parseInt(request.getParameter("track_id"));
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
-        TrackService trackService = new TrackServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        TrackService trackService = factory.getTrackService();
         Optional<Track> track = trackService.findById(trackId);
         if(track.isPresent()){
             trackService.buyTrack(user,track.get());

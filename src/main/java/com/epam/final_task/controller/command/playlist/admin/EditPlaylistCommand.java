@@ -6,6 +6,7 @@ import com.epam.final_task.model.entity.Playlist;
 import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.PlaylistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.PlaylistServiceImpl;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
@@ -25,8 +26,9 @@ public class EditPlaylistCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int playlistId = Integer.parseInt(request.getParameter("id"));
-        TrackService trackService = new TrackServiceImpl();
-        PlaylistService playlistService = new PlaylistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        TrackService trackService = factory.getTrackService();
+        PlaylistService playlistService = factory.getPlaylistService();
         Optional<Playlist> playlist = playlistService.findById(playlistId);
         ResponseContent responseContent;
         if (playlist.isPresent()) {

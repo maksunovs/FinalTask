@@ -98,9 +98,9 @@
         </form>
 
         <div style="margin-top:15px; height:35px; color: red;">
-            <c:if test="${not empty requestScope.login}">
+            <c:if test="${not empty param.login}">
                 <fmt:message
-                        key="text.unableToLogin"/>
+                        key="${param.login}"/>
             </c:if>
         </div>
 

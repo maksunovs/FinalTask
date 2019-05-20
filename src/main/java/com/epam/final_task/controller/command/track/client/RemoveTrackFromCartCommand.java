@@ -8,6 +8,7 @@ import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.User;
 import com.epam.final_task.service.OrderService;
 import com.epam.final_task.service.OrderTrackService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.OrderServiceImpl;
 import com.epam.final_task.service.implementaiton.OrderTrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
@@ -28,11 +29,12 @@ public class RemoveTrackFromCartCommand implements Command {
         int trackId = Integer.parseInt(request.getParameter("track_id"));
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        OrderService orderService = new OrderServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        OrderService orderService = factory.getOrderService();
         Optional<Order> order = orderService.findByUserId(user.getId());
         ResponseContent responseContent;
         if (order.isPresent()) {
-            OrderTrackService orderTrackService = new OrderTrackServiceImpl();
+            OrderTrackService orderTrackService = factory.getOrderTrackService();
             Optional<OrderTrack> orderTrack = orderTrackService.findByOrderIdAndTrackId(order.get().getId(),trackId);
             if(orderTrack.isPresent()){
                 orderTrackService.removeById(orderTrack.get().getId());

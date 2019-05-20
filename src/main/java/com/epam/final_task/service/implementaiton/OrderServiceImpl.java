@@ -39,6 +39,11 @@ public class OrderServiceImpl implements OrderService {
     public void payOrder(User user, int orderId, BigDecimal value) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             try {
+                UserDao userDao = factory.getUserDAO();
+                BigDecimal clientCash = userDao.findCash(user.getId());
+                if(clientCash.compareTo(value)<0){
+                    return;
+                }
                 factory.startTransaction();
                 TrackDao trackDao = factory.getTrackDao();
                 List<Track> tracks = trackDao.findOrderedTracks(orderId);
@@ -51,7 +56,6 @@ public class OrderServiceImpl implements OrderService {
                 for (Track track : tracks) {
                     userTrackDao.save(new UserTrack(user.getId(), track.getId()));
                 }
-                UserDao userDao = factory.getUserDAO();
                 BigDecimal cash = ((Client) user).getCash();
                 BigDecimal newCash = cash.add(value.negate());
                 userDao.updateClientCash(newCash, user.getId());

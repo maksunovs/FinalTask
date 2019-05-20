@@ -7,6 +7,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class CurrencyStampTag extends TagSupport {
     private BigDecimal value;
@@ -27,7 +28,7 @@ public class CurrencyStampTag extends TagSupport {
                     message = value.toString() + " $";
                     break;
                 case BYN:
-                    message = value.multiply(BYN_EXCHANGE_RATE).toString() + " Br";
+                    message = value.multiply(BYN_EXCHANGE_RATE).setScale(2, RoundingMode.HALF_UP).toString() + " Br";
                     break;
             }
             pageContext.getOut().write(message);

@@ -1,7 +1,8 @@
-package com.epam.final_task.util;
+package com.epam.final_task.service.helper;
 
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.OrderService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;
 import com.epam.final_task.service.implementaiton.OrderServiceImpl;
@@ -18,7 +19,8 @@ public class TrackStateInitializer {
         if(!order.isPresent()){
             throw  new ServiceException("Cart is not exist");
         }
-        TrackService trackService = new TrackServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        TrackService trackService = factory.getTrackService();
         List<Track> purchasedTracks = trackService.findPurchasedTracks(client.getId());
         List<Track> orderedTracks = trackService.findOrderedTracks(order.get().getId());
         for (Track track : tracks) {

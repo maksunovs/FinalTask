@@ -33,7 +33,7 @@
         </div>
         <button id="edit_button"
                 onclick="location.href='music?command=remove_from_cart&track_id=${track.getId()}'"
-                title="Remove from cart"><fmt:message key="button.remove"/>
+                ><fmt:message key="button.remove"/>
         </button>
     </div>
     </c:forEach>

@@ -5,6 +5,7 @@ import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.Playlist;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.PlaylistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.PlaylistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -18,7 +19,8 @@ public class ViewPlaylistsListCommand implements Command {
     private static final String CONTENT_PATH = "WEB-INF/view/playlists.jsp";
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        PlaylistService service = new PlaylistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        PlaylistService service = factory.getPlaylistService();
         List<Playlist> playlists = service.findAll();
         request.setAttribute("playlists",playlists);
         return new ResponseContent(ResponseType.FORWARD,CONTENT_PATH);

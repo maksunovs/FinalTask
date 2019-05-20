@@ -15,6 +15,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     private static final Logger LOGGER = Logger.getLogger(PlaylistServiceImpl.class);
 
+
     public List<Playlist> findAll() throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             PlaylistDao playlistDao = factory.getPlaylistDao();

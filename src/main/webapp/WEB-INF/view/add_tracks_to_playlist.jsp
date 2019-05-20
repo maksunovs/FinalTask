@@ -19,7 +19,7 @@
 <jsp:include page="header.jsp"/>
 <div class="content" style="padding: 0 10px">
     <button id="back_button" onclick="location.href='music?command=view_playlist&id=${playlist.getId()}'"
-            title="back"><fmt:message key="playlist.edit.button.back"/>
+            ><fmt:message key="playlist.edit.button.back"/>
     </button>
     <br/>
     <span style="font-size: 20px; margin: 0 10px; border-bottom: 1px solid; border-color: #ccc;"><c:out
@@ -34,14 +34,14 @@
                 </ul>
                 <div class="buttons">
                 <button onclick="location.href='music?command=delete_audiotrack&id=${audiotrack.getId()}'"
-                        title="delete"><i
+                        title="<fmt:message key="button.title.delete.track"/>"><i
                         class='fas fa-trash-alt'></i>
                 </button>
                 </div>
             </div>
             <button id="edit_button"
                     onclick="location.href='music?command=add_track_to_playlist&playlist_id=${playlist.getId()}&audiotrack_id=${audiotrack.getId()}'"
-                    title="Add to playlist"><fmt:message key="button.add"/>
+                    title="<fmt:message key="button.title.add.toPlaylist"/>"><fmt:message key="button.add"/>
             </button>
         </div>
     </c:forEach>

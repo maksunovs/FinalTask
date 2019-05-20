@@ -20,19 +20,19 @@
 <jsp:include page="header.jsp"/>
 <div class="content" style="padding: 0 10px">
     <button id="back_button" onclick="location.href='music?command=view_playlists'"
-            title="Back"><fmt:message key="playlist.button.back"/>
+            ><fmt:message key="playlist.button.back"/>
     </button>
     <br/>
     <span style="font-size: 20px;  border-bottom: 1px solid; border-color: #ccc;"><c:out
             value="${playlist.getTitle()}"/></span>
     <c:if test="${user.getRole().getValue()=='admin'}">
         <button id="delete-button" onclick="location.href='music?command=delete_playlist&id=${playlist.getId()}'"
-                title="Delete playlist"><i
+                title="<fmt:message key="button.title.delete.playlist"/>"><i
                 style="font-size:13px;" class='fas fa-trash-alt'></i></button>
         <br/><br/>
         <button id="edit_button"
                 onclick="location.href='music?command=add_tracks_to_playlist&id=${playlist.getId()}'"
-                title="Add track"><fmt:message key="button.addTrack"/>
+                ><fmt:message key="button.addTrack"/>
         </button>
 
     </c:if><br/><br/>
@@ -52,11 +52,11 @@
                             <c:choose>
                                 <c:when test="${track.getState().getValue()=='in_store'}">
                                     <form action="music?command=buy_track&track_id=${track.getId()}" method="post">
-                                        <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)" title="Buy now"><i
+                                        <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)" title="<fmt:message key="button.title.buy"/>"><i
                                                 class='fas fa-cart-arrow-down'></i>
                                         </button>
                                     </form>
-                                    <button  onclick="location.href='music?command=add_to_cart&track_id=${track.getId()}'" title="Add to cart"><i
+                                    <button  onclick="location.href='music?command=add_to_cart&track_id=${track.getId()}'" title="<fmt:message key="button.title.addToCart"/>"><i
                                             class='fas fa-plus'></i>
                                     </button>
                                 </c:when>
@@ -67,7 +67,7 @@
                         </c:when>
                         <c:when test="${user.getRole().getValue()=='admin'}">
                             <button onclick="location.href='music?command=delete_audiotrack&id=${track.getId()}'"
-                                    title="delete"><i
+                                    title="<fmt:message key="button.title.delete.track"/>"><i
                                     class='fas fa-trash-alt'></i>
                             </button>
                         </c:when>
@@ -78,7 +78,7 @@
             <c:if test="${user.getRole().getValue()=='admin'}">
                 <button id="edit_button"
                         onclick="location.href='music?command=remove_audiotrack_from_playlist&playlist_id=${playlist.getId()}&track_id=${track.getId()}'"
-                        title="remove from playlist"><fmt:message key="button.remove"/>
+                        title="<fmt:message key="button.title.remove.fromPlaylist"/>"><fmt:message key="button.remove"/>
                 </button>
             </c:if>
         </div>

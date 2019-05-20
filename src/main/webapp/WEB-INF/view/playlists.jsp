@@ -24,8 +24,8 @@
     <c:if test="${user.getRole().getValue()=='admin'}">
         <form action="music?command=save_playlist" method="post">
             <input type="text" name="title" placeholder="<fmt:message key="form.newPlaylist.input"/>" required
-                   pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s)+"/>
-            <button id="add_button" type="submit" title="new playlist"><fmt:message key="button.add"/></button>
+                   pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s){1,90}"/>
+            <button id="add_button" type="submit" ><fmt:message key="button.add"/></button>
         </form>
     </c:if>
     <br/><br/>

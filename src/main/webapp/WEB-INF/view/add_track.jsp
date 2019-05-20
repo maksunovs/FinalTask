@@ -30,7 +30,7 @@
                 <option value="${artist.getId().toString()}"><c:out value="${artist.getName()}"/></option>
             </c:forEach>
         </select><br/>
-        <input placeholder="<fmt:message key="form.newTrack.input.title"/>" type="text" name="title" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s)+" tabindex="2" required><br/>
+        <input placeholder="<fmt:message key="form.newTrack.input.title"/>" type="text" name="title" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s){1,90}" tabindex="2" required><br/>
         <select name="genre" required>
             <option hidden><fmt:message key="form.newTrack.input.genre"/></option>
             <option value="Pop">Pop</option>
@@ -42,7 +42,7 @@
             <option value="Jazz">Jazz</option>
             <option value="Punk">Punk</option>
         </select><br/>
-        <input placeholder="<fmt:message key="form.newTrack.input.price"/>" name="price" type="number" min="0" max="100000" step="0.01" tabindex="4" required><br/>
+        <input placeholder="<fmt:message key="form.newTrack.input.price"/>" name="price" type="number" min="0" max="1000000" step="0.01" tabindex="4" required><br/>
         <button name="submit" type="submit"><fmt:message key="button.save"/></button>
     </form>
 </div>

@@ -4,11 +4,12 @@ import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.PlaylistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.implementaiton.PlaylistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
-import com.epam.final_task.util.TrackStateInitializer;
+import com.epam.final_task.service.helper.TrackStateInitializer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +34,10 @@ public class ViewPlaylistCommand implements Command {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
-        PlaylistService playlistService = new PlaylistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        PlaylistService playlistService = factory.getPlaylistService();
         Optional<Playlist> playlist = playlistService.findById(id);
-        TrackService trackService = new TrackServiceImpl();
+        TrackService trackService = factory.getTrackService();
         List<Track> tracks = trackService.findByPlaylistId(id);
         ResponseContent responseContent;
         if (playlist.isPresent()) {

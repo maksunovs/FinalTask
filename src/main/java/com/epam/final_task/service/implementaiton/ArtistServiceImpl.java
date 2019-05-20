@@ -15,6 +15,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     private static final Logger LOGGER = Logger.getLogger(ArtistServiceImpl.class);
 
+
     public void save(Artist artist) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             ArtistDao artistDao = factory.getArtistDao();

@@ -3,6 +3,7 @@ package com.epam.final_task.controller.command.track.admin;
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
@@ -18,7 +19,8 @@ public class DeleteTrackCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int id = Integer.parseInt(request.getParameter("id"));
-        TrackService service = new TrackServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        TrackService service = factory.getTrackService();
         service.deleteById(id);
         String contentPath = request.getHeader(REFERER);
         return new ResponseContent(ResponseType.REDIRECT, contentPath);

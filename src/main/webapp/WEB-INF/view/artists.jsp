@@ -21,7 +21,7 @@
     <br/>
     <span style="font-size: 20px; margin-right: 10px; float: left;"><fmt:message key="text.artistList"/></span>
     <c:if test="${user.getRole().getValue()=='admin'}">
-            <button id="add_button" onclick="location.href='music?command=add_artist'" title="New artist"><fmt:message key="button.add"/></button>
+            <button id="add_button" onclick="location.href='music?command=add_artist'" title="<fmt:message key="button.title.add.newArtist"/>"><fmt:message key="button.add"/></button>
     </c:if>
     <br/><br/>
     <c:forEach var="artist" items="${artists}">

@@ -1,24 +1,24 @@
 package com.epam.final_task.service.implementaiton;
 
+import com.epam.final_task.model.dao.implementation.OrderDao;
 import com.epam.final_task.model.dao.implementation.TrackDao;
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.dao.implementation.UserDao;
 import com.epam.final_task.model.dao.implementation.UserTrackDao;
-import com.epam.final_task.model.entity.Client;
-import com.epam.final_task.model.entity.Track;
-import com.epam.final_task.model.entity.User;
-import com.epam.final_task.model.entity.UserTrack;
+import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class TrackServiceImpl implements TrackService {
     private static final Logger LOGGER = Logger.getLogger(TrackServiceImpl.class);
+
 
     public List<Track> findAll() throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
@@ -164,15 +164,22 @@ public class TrackServiceImpl implements TrackService {
             try {
                 TrackDao trackDao = factory.getTrackDao();
                 List<Track> purchasedTracks = trackDao.findPurchasedTracks(user.getId());
-                if (purchasedTracks.contains(track)||track.getPrice().compareTo(((Client)user).getCash())>0) {
+                OrderDao orderDao = factory.getOrderDao();
+                Optional<Order> order = orderDao.findByUserId(user.getId());
+                List<Track> orderedTracks = new ArrayList<>();
+                if(order.isPresent()){
+                    orderedTracks = trackDao.findOrderedTracks(order.get().getId());
+                }
+                BigDecimal trackPrice = track.getPrice();
+                UserDao userDao = factory.getUserDAO();
+                BigDecimal clientCash = userDao.findCash(user.getId());
+                if (purchasedTracks.contains(track)||orderedTracks.contains(track)||trackPrice.compareTo(clientCash)>0) {
                     return;
                 }
                 factory.startTransaction();
-                UserDao userDao = factory.getUserDAO();
-                BigDecimal cash = ((Client) user).getCash();
                 UserTrackDao userTrackDao = factory.getUserTrackDao();
                 userTrackDao.save(new UserTrack(user.getId(), track.getId()));
-                BigDecimal newCash = cash.add(track.getPrice().negate());
+                BigDecimal newCash = clientCash.add(trackPrice.negate());
                 userDao.updateClientCash(newCash, user.getId());
                 ((Client) user).setCash(newCash);
                 factory.finishTransaction();

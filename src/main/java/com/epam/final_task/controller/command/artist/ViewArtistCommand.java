@@ -4,13 +4,12 @@ import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.ArtistService;
-import com.epam.final_task.service.OrderService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
-import com.epam.final_task.service.implementaiton.OrderServiceImpl;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
-import com.epam.final_task.util.TrackStateInitializer;
+import com.epam.final_task.service.helper.TrackStateInitializer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +34,12 @@ public class ViewArtistCommand implements Command {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
-        ArtistService artistService = new ArtistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        ArtistService artistService = factory.getArtistService();
         Optional<Artist> artist = artistService.findById(id);
         ResponseContent responseContent;
         if (artist.isPresent()) {
-            TrackService trackService = new TrackServiceImpl();
+            TrackService trackService = factory.getTrackService();
             List<Track> tracks = trackService.findByArtistId(id);
             if (user.getRole() == Role.CLIENT) {
                initializer.initializeStates(tracks,(Client)user);

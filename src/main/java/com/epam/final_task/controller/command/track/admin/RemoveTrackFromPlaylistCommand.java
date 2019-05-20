@@ -5,6 +5,7 @@ import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.PlaylistTrack;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.PlaylistTrackService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.PlaylistTrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -22,7 +23,8 @@ public class RemoveTrackFromPlaylistCommand implements Command {
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int playlistId = Integer.parseInt(request.getParameter("playlist_id"));
         int trackId = Integer.parseInt(request.getParameter("track_id"));
-        PlaylistTrackService service = new PlaylistTrackServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        PlaylistTrackService service = factory.PlaylistTrackservice();
         Optional<PlaylistTrack> relation = service.findByPlaylistIdAndAudioTrackId(playlistId, trackId);
         ResponseContent responseContent;
         if (relation.isPresent()) {

@@ -4,6 +4,7 @@ import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.ArtistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -19,7 +20,8 @@ public class DeleteArtistCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int id = Integer.parseInt(request.getParameter("id"));
-        ArtistService service = new ArtistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        ArtistService service = factory.getArtistService();
         service.removeById(id);
         return new ResponseContent(ResponseType.REDIRECT,CONTENT_PATH);
     }

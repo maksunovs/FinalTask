@@ -5,12 +5,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyLoader {
-     public Properties load(String name) throws IOException{
-         InputStream in = getClass().getClassLoader().getResourceAsStream(name);
-             Properties properties = new Properties();
-             properties.load(in);
-             in.close();
-             return  properties;
+    public Properties load(String name) throws IOException {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(name);
+        Properties properties = new Properties();
+        properties.load(in);
+        in.close();
+        return properties;
 
-     }
+    }
 }

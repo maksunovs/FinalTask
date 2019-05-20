@@ -26,12 +26,12 @@
                         <c:when test="${track.getState().getValue()=='in_store'}">
                             <form action="music?command=buy_track&track_id=${track.getId()}" method="post">
                                 <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)"
-                                        title="Buy now"><i
+                                        title="<fmt:message key="button.title.buy"/>"><i
                                         class='fas fa-cart-arrow-down'></i>
                                 </button>
                             </form>
                             <button onclick="location.href='music?command=add_to_cart&track_id=${track.getId()}'"
-                                    title="Add to cart"><i
+                                    title="<fmt:message key="button.title.addToCart"/>"><i
                                     class='fas fa-plus'></i>
                             </button>
                         </c:when>
@@ -42,8 +42,9 @@
                 </c:when>
 
                 <c:when test="${user.getRole().getValue()=='admin'}">
+
                     <button onclick="location.href='music?command=delete_audiotrack&id=${track.getId()}'"
-                            title="Delete"><i
+                            title="<fmt:message key="button.title.delete.track"/>"><i
                             class='fas fa-trash-alt'></i>
                     </button>
                 </c:when>
@@ -56,12 +57,13 @@
 
 <c:if test="${user.getRole().getValue() == 'client'}">
     <script>
+
         function check(obj) {
             var price = obj.value;
             var cash = ${user.getCash()};
-            if (price > cash) {
-                obj.setCustomValidity("<fmt:message key="notification.text"/>");
-            }
+                if (price > cash) {
+                    obj.setCustomValidity("<fmt:message key="notification.text"/>");
+                }
         }
 
     </script>

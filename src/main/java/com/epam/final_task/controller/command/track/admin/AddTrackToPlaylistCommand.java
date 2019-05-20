@@ -4,6 +4,7 @@ import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.PlaylistTrackService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.PlaylistTrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -20,7 +21,8 @@ public class AddTrackToPlaylistCommand implements Command {
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int playlistId = Integer.parseInt(request.getParameter("playlist_id"));
         int trackId = Integer.parseInt(request.getParameter("audiotrack_id"));
-        PlaylistTrackService service = new PlaylistTrackServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        PlaylistTrackService service = factory.PlaylistTrackservice();
         service.save(playlistId, trackId);
         String contentPath = request.getHeader(REFERER);
         return new ResponseContent(ResponseType.REDIRECT, contentPath);

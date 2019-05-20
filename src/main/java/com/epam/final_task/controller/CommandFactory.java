@@ -22,8 +22,8 @@ import com.epam.final_task.controller.command.track.admin.*;
 import com.epam.final_task.controller.command.track.client.BuyTrackCommand;
 import com.epam.final_task.controller.command.track.client.RemoveTrackFromCartCommand;
 import com.epam.final_task.controller.command.track.client.ShowPurchasedTracksCommand;
-import com.epam.final_task.util.RequestParameterValidator;
-import com.epam.final_task.util.TrackStateInitializer;
+import com.epam.final_task.util.DataValidator;
+import com.epam.final_task.service.helper.TrackStateInitializer;
 
 public class CommandFactory {
     public static Command getCommand(String commandName) {
@@ -33,7 +33,7 @@ public class CommandFactory {
                 command = new ShowHomePageCommand(new TrackStateInitializer());
                 break;
             case "login":
-                command = new LoginCommand(new RequestParameterValidator());
+                command = new LoginCommand();
                 break;
             case "add_audiotrack":
                 command = new AddTrackCommand();
@@ -42,7 +42,7 @@ public class CommandFactory {
                 command = new DeleteTrackCommand();
                 break;
             case "save_audiotrack":
-                command = new SaveTrackCommand();
+                command = new SaveTrackCommand(new DataValidator());
                 break;
             case "view_artists":
                 command = new ViewArtistsListCommand();
@@ -54,7 +54,7 @@ public class CommandFactory {
                 command = new AddArtistCommand();
                 break;
             case "save_artist":
-                command = new SaveArtistCommand();
+                command = new SaveArtistCommand(new DataValidator());
                 break;
             case "delete_artist":
                 command = new DeleteArtistCommand();
@@ -66,7 +66,7 @@ public class CommandFactory {
                 command = new ViewPlaylistCommand(new TrackStateInitializer());
                 break;
             case "save_playlist":
-                command = new SavePlaylistCommand();
+                command = new SavePlaylistCommand(new DataValidator());
                 break;
             case "delete_playlist":
                 command = new DeletePlaylistCommand();
@@ -81,7 +81,7 @@ public class CommandFactory {
                 command = new AddTrackToPlaylistCommand();
                 break;
             case "save_album":
-                command = new SaveAlbumCommand();
+                command = new SaveAlbumCommand(new DataValidator());
                 break;
             case "view_albums":
                 command = new ViewAlbumsListCommand();
@@ -123,7 +123,7 @@ public class CommandFactory {
                 command = new TopUpBalancePageCommand();
                 break;
             case "top_up_balance":
-                command = new TopUpBalanceCommand();
+                command = new TopUpBalanceCommand(new DataValidator());
                 break;
             case "buy_track":
                 command = new BuyTrackCommand();

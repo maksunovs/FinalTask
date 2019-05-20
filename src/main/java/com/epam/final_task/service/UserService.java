@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> login(String login, String password) throws ServiceException ;
 
     void updateCash(BigDecimal cash, int user_id) throws ServiceException;
+
+    BigDecimal findCash(int userId) throws ServiceException;
 }

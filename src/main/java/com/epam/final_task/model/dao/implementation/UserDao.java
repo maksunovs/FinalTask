@@ -5,6 +5,7 @@ import com.epam.final_task.model.dao.AbstractDao;
 import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.entity.User;
 import com.epam.final_task.util.Hasher;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -22,10 +23,15 @@ public class UserDao extends AbstractDao<User> {
             "ON users.id=cashes.user_id WHERE users.login=? AND password=?;";
     private static final String UPDATE_CLIENT_CASH = "UPDATE cashes SET value=? WHERE user_id=?;";
     private static final String FIND_CLIENT_CASH = "SELECT *FROM cashes WHERE user_id=?;";
+    private static final String FIND_CASH = "SELECT *FROM cashes WHERE user_id=?;";
+
+    private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+
     private final Hasher hasher;
+
     public UserDao(Connection connection, Builder<User> builder, Hasher hasher) {
         super(connection, builder);
-        this.hasher=hasher;
+        this.hasher = hasher;
     }
 
     public Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException {
@@ -37,6 +43,22 @@ public class UserDao extends AbstractDao<User> {
         executeUpdate(UPDATE_CLIENT_CASH, cash, clientId);
     }
 
+    public BigDecimal findCash(int userId) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_CASH)) {
+            preparedStatement.setObject(1,userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            BigDecimal cash = new BigDecimal("0");
+            while (resultSet.next()) {
+                cash = resultSet.getBigDecimal("value");
+            }
+            return cash;
+        } catch (SQLException e)
+        {
+            LOGGER.error(e.getMessage());
+            throw new DaoException("Failed to find client cash");
+        }
+    }
 
 
     @Override

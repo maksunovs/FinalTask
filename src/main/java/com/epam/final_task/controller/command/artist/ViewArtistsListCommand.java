@@ -5,6 +5,7 @@ import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.Artist;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.ArtistService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -19,7 +20,8 @@ public class ViewArtistsListCommand implements Command {
     private static final String CONTENT_PATH = "WEB-INF/view/artists.jsp";
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        ArtistService service = new ArtistServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        ArtistService service = factory.getArtistService();
         List<Artist> artists = service.findAll();
         Collections.sort(artists);
         request.setAttribute("artists",artists);

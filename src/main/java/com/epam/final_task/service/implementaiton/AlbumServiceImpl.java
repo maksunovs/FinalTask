@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class AlbumServiceImpl implements AlbumService {
-
     private static final Logger LOGGER = Logger.getLogger(AlbumServiceImpl.class);
+
 
     public List<Album> findByArtistId(int id) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {

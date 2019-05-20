@@ -7,6 +7,7 @@ import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.model.entity.User;
 import com.epam.final_task.service.OrderService;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.implementaiton.OrderServiceImpl;
 import com.epam.final_task.service.implementaiton.TrackServiceImpl;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,16 +31,14 @@ public class ShowCartCommand implements Command {
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        OrderService orderService = new OrderServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        OrderService orderService = factory.getOrderService();
         Optional<Order> order = orderService.findByUserId(user.getId());
         ResponseContent responseContent;
         if (order.isPresent()) {
-            TrackService trackService = new TrackServiceImpl();
+            TrackService trackService = factory.getTrackService();
             List<Track> tracks = trackService.findOrderedTracks(order.get().getId());
-            BigDecimal value = new BigDecimal(0);
-            for (Track track : tracks) {
-                value = value.add(track.getPrice());
-            }
+            BigDecimal value = cartValue(tracks);
             request.setAttribute("value", value);
             request.setAttribute("tracks", tracks);
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
@@ -46,5 +46,13 @@ public class ShowCartCommand implements Command {
             responseContent = new ResponseContent(ResponseType.REDIRECT, "music?command=home");
         }
         return responseContent;
+    }
+
+    private BigDecimal cartValue(List<Track> tracks) {
+        BigDecimal value = new BigDecimal("0");
+        for (Track track : tracks) {
+            value = value.add(track.getPrice());
+        }
+        return value;
     }
 }

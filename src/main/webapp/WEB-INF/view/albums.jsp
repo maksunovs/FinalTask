@@ -20,14 +20,14 @@
 <jsp:include page="header.jsp"/>
 <div class="content" style="padding: 0 10px">
     <button id="back_button" onclick="location.href='music?command=view_artists'"
-            title="Back"><fmt:message key="artist.button.back"/>
+            ><fmt:message key="artist.button.back"/>
     </button>
     <br/>
     <span style="font-size: 20px;  border-bottom: 1px solid; border-color: #ccc;"><c:out
             value="${artist.getName()}"/></span>
     <c:if test="${user.getRole().getValue()=='admin'}">
         <button id="delete-button" onclick="location.href='music?command=delete_artist&id=${artist.getId()}'"
-                title="Delete artist"><i
+                title="<fmt:message key="button.title.delete.artist"/>"><i
                 style="font-size:13px;" class='fas fa-trash-alt'></i></button>
     </c:if>
     <br/><br/>
@@ -38,8 +38,8 @@
     <br/>
     <c:if test="${user.getRole().getValue()=='admin'}">
         <form action="music?command=save_album&artist_id=${artist.getId()}" method="post">
-            <input type="text" name="title" placeholder="<fmt:message key="form.newAlbum.input"/>" required pattern="\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\s)+"/>
-            <button id="add_button" type="submit" title="New album"><fmt:message key="button.add"/></button>
+            <input type="text" name="title" placeholder="<fmt:message key="form.newAlbum.input"/>" required pattern="\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\s){1,90}"/>
+            <button id="add_button" type="submit"><fmt:message key="button.add"/></button>
         </form>
     </c:if>
 

@@ -3,10 +3,9 @@ package com.epam.final_task.controller.command;
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.User;
+import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.UserService;
-import com.epam.final_task.service.implementaiton.UserServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
-import com.epam.final_task.util.RequestParameterValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,30 +16,24 @@ import java.util.Optional;
 
 public class LoginCommand implements Command {
 
-    private final RequestParameterValidator validator;
-
-    public LoginCommand(RequestParameterValidator validator){
-        this.validator=validator;
-    }
-
     private static final String CONTENT_PATH ="/music?command=home";
+        private static final  String INDEX_WITH_LOGIN_ERROR = "/?login=error.login";
+
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        System.out.println(request.getContextPath());
         ResponseContent responseContent;
-        if(login==null||password==null){
-          return new ResponseContent(ResponseType.REDIRECT,"/");
-        }
-        UserService service = new UserServiceImpl();
+        ServiceFactory factory = new ServiceFactory();
+        UserService service = factory.getUserService();
         Optional<User> user = service.login(login, password);
         if (user.isPresent()) {
             HttpSession session = request.getSession();
             session.setAttribute("user",user.get());
             responseContent = new ResponseContent(ResponseType.REDIRECT,CONTENT_PATH);
         } else {
-            request.setAttribute("login",false);
-            responseContent = new ResponseContent(ResponseType.FORWARD,"index.jsp");
+            responseContent = new ResponseContent(ResponseType.REDIRECT,INDEX_WITH_LOGIN_ERROR);
         }
         return  responseContent;
     }
