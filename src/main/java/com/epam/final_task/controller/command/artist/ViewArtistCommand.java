@@ -6,8 +6,6 @@ import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.ArtistService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
-import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
-import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 import com.epam.final_task.service.helper.TrackStateInitializer;
 
@@ -21,6 +19,14 @@ import java.util.Optional;
 
 public class ViewArtistCommand implements Command {
 
+    private static final String ID_PARAMETER = "id";
+
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String ARTIST_ATTRIBUTE = "artist";
+    private static final String TRACKS_ATTRIBUTE = "tracks";
+
+    private static final String ARTISTS_PAGE = "music?command=view_artists";
+
     private final TrackStateInitializer initializer;
 
     public ViewArtistCommand(TrackStateInitializer initializer) {
@@ -32,8 +38,8 @@ public class ViewArtistCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        int id = Integer.parseInt(request.getParameter("id"));
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
+        int id = Integer.parseInt(request.getParameter(ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
         ArtistService artistService = factory.getArtistService();
         Optional<Artist> artist = artistService.findById(id);
@@ -42,13 +48,13 @@ public class ViewArtistCommand implements Command {
             TrackService trackService = factory.getTrackService();
             List<Track> tracks = trackService.findByArtistId(id);
             if (user.getRole() == Role.CLIENT) {
-               initializer.initializeStates(tracks,(Client)user);
+                initializer.initializeStates(tracks, (Client) user);
             }
-            request.setAttribute("artist", artist.get());
-            request.setAttribute("tracks", tracks);
+            request.setAttribute(ARTIST_ATTRIBUTE, artist.get());
+            request.setAttribute(TRACKS_ATTRIBUTE, tracks);
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
         } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT, ",music?command=view_artists");
+            responseContent = new ResponseContent(ResponseType.REDIRECT, ARTISTS_PAGE);
         }
         return responseContent;
     }

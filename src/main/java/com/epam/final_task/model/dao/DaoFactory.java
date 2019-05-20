@@ -4,7 +4,7 @@ import com.epam.final_task.builder.*;
 import com.epam.final_task.model.dao.connection.ConnectionPool;
 import com.epam.final_task.model.dao.exception.ConnectionException;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.implementation.*;
+import com.epam.final_task.model.dao.impl.*;
 import com.epam.final_task.util.Hasher;
 
 import java.sql.Connection;

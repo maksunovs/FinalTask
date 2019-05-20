@@ -2,8 +2,8 @@ package com.epam.final_task.controller.command.track.admin;
 
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
-import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;
@@ -16,7 +16,14 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class SaveTrackCommand implements Command {
+
+    private static final String ARTIST_ID_PARAMETER = "artist_id";
+    private static final String TITLE_PARAMETER = "title";
+    private static final String GENRE_PARAMETER = "genre";
+    private static final String PRICE_PARAMETER = "price";
+
     private static final String CONTENT_PATH = "music?command=add_audiotrack";
+
     private final DataValidator validator;
 
     public SaveTrackCommand(DataValidator validator) {
@@ -25,10 +32,10 @@ public class SaveTrackCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        int artistId = Integer.parseInt(request.getParameter("artist_id"));
-        String title = request.getParameter("title");
-        String genre = request.getParameter("genre");
-        String stringPrice = request.getParameter("price");
+        int artistId = Integer.parseInt(request.getParameter(ARTIST_ID_PARAMETER));
+        String title = request.getParameter(TITLE_PARAMETER);
+        String genre = request.getParameter(GENRE_PARAMETER);
+        String stringPrice = request.getParameter(PRICE_PARAMETER);
         ServiceFactory factory = new ServiceFactory();
         TrackService service = factory.getTrackService();
         if (validator.validateInputText(title) && validator.validateInputText(genre) && validator.validateValue(stringPrice)) {

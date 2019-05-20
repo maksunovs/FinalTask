@@ -7,7 +7,6 @@ import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
-import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -19,16 +18,20 @@ import java.util.List;
 
 public class ShowPurchasedTracksCommand implements Command {
 
+    private static final String TRACKS_PARAMETER = "tracks";
+
+    private static final String USER_ATTRIBUTE = "user";
+
     private static final String CONTENT_PATH = "WEB-INF/view/purchases.jsp";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        Client client = (Client) session.getAttribute("user");
+        Client client = (Client) session.getAttribute(USER_ATTRIBUTE);
         ServiceFactory factory = new ServiceFactory();
         TrackService trackService = factory.getTrackService();
         List<Track> tracks = trackService.findPurchasedTracks(client.getId());
-        request.setAttribute("tracks", tracks);
+        request.setAttribute(TRACKS_PARAMETER, tracks);
         return new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
     }
 }

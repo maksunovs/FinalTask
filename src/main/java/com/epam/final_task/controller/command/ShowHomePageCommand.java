@@ -4,7 +4,6 @@ import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
-import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 import com.epam.final_task.service.helper.TrackStateInitializer;
 
@@ -16,6 +15,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class ShowHomePageCommand implements Command {
+
+    private static final String GENRE_PARAMETER = "genre";
+    private static final String TRACKS_PARAMETER = "tracks";
+
+    private static final String USER_ATTRIBUTE ="user";
+
     private static final String CONTENT_PATH = "WEB-INF/view/home.jsp";
 
     private final TrackStateInitializer initializer;
@@ -26,7 +31,7 @@ public class ShowHomePageCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String genre = request.getParameter("genre");
+        String genre = request.getParameter(GENRE_PARAMETER);
         ServiceFactory factory = new ServiceFactory();
         TrackService trackService = factory.getTrackService();
         List<Track> tracks;
@@ -36,12 +41,11 @@ public class ShowHomePageCommand implements Command {
             tracks = trackService.findAll();
         }
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
         if (user.getRole() == Role.CLIENT) {
             initializer.initializeStates(tracks,(Client)user);
         }
-
-        request.setAttribute("tracks", tracks);
+        request.setAttribute(TRACKS_PARAMETER, tracks);
         return new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
     }
 }

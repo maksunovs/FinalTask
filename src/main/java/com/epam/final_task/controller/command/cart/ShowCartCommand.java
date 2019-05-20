@@ -9,8 +9,6 @@ import com.epam.final_task.model.entity.User;
 import com.epam.final_task.service.OrderService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
-import com.epam.final_task.service.implementaiton.OrderServiceImpl;
-import com.epam.final_task.service.implementaiton.TrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -19,18 +17,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
 public class ShowCartCommand implements Command {
+
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String VALUE_ATTRIBUTE = "value";
+    private static final String TRACKS_ATTRIBUTE = "tracks";
+
+    private static final String HOME_PAGE = "music?command=home";
+
+    private static final String ZERO_PARAMETER = "0";
 
     private static final String CONTENT_PATH = "WEB-INF/view/cart.jsp";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
         ServiceFactory factory = new ServiceFactory();
         OrderService orderService = factory.getOrderService();
         Optional<Order> order = orderService.findByUserId(user.getId());
@@ -39,17 +44,17 @@ public class ShowCartCommand implements Command {
             TrackService trackService = factory.getTrackService();
             List<Track> tracks = trackService.findOrderedTracks(order.get().getId());
             BigDecimal value = cartValue(tracks);
-            request.setAttribute("value", value);
-            request.setAttribute("tracks", tracks);
+            request.setAttribute(VALUE_ATTRIBUTE, value);
+            request.setAttribute(TRACKS_ATTRIBUTE, tracks);
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
         } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT, "music?command=home");
+            responseContent = new ResponseContent(ResponseType.REDIRECT, HOME_PAGE);
         }
         return responseContent;
     }
 
     private BigDecimal cartValue(List<Track> tracks) {
-        BigDecimal value = new BigDecimal("0");
+        BigDecimal value = new BigDecimal(ZERO_PARAMETER);
         for (Track track : tracks) {
             value = value.add(track.getPrice());
         }

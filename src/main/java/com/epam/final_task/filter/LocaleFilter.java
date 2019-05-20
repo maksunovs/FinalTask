@@ -16,10 +16,10 @@ public class LocaleFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
-        Language  language = (Language) session.getAttribute(LANGUAGE_ATTRIBUTE);
-        if (language == null){
-         session.setAttribute(LANGUAGE_ATTRIBUTE,DEFAULT_LANGUAGE);
+        Language language = (Language) session.getAttribute(LANGUAGE_ATTRIBUTE);
+        if (language == null) {
+            session.setAttribute(LANGUAGE_ATTRIBUTE, DEFAULT_LANGUAGE);
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

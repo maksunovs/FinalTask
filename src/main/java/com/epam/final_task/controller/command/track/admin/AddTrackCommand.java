@@ -6,7 +6,6 @@ import com.epam.final_task.model.entity.Artist;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.ArtistService;
 import com.epam.final_task.service.ServiceFactory;
-import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -17,14 +16,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class AddTrackCommand implements Command {
+
+    private static final String ARTISTS_ATTRIBUTE = "artists";
+
     private static final String CONTENT_PATH = "WEB-INF/view/add_track.jsp";
+
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         ServiceFactory factory = new ServiceFactory();
         ArtistService service = factory.getArtistService();
         List<Artist> artists = service.findAll();
         Collections.sort(artists);
-        request.setAttribute("artists",artists);
-        return new ResponseContent(ResponseType.FORWARD,CONTENT_PATH);
+        request.setAttribute(ARTISTS_ATTRIBUTE, artists);
+        return new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
     }
 }

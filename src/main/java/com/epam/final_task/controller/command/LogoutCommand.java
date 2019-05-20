@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LogoutCommand implements Command {
+
     private static final String CONTENT_PATH = "/";
+
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();

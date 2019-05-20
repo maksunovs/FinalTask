@@ -16,6 +16,6 @@ public class TopUpBalancePageCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        return  new ResponseContent(ResponseType.FORWARD,CONTENT_PATH);
+        return new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
     }
 }

@@ -16,7 +16,9 @@ import java.io.IOException;
 
 public class SaveAlbumCommand implements Command {
 
-    private static final String CONTENT_PATH = "music?command=view_albums&artist_id=";
+    private static final String ARTIST_ID_PARAMETER = "artist_id";
+    private static final String TITLE_PARAMETER = "title";
+
     private final DataValidator validator;
 
     public SaveAlbumCommand(DataValidator validator) {
@@ -25,13 +27,13 @@ public class SaveAlbumCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        int artistId = Integer.parseInt(request.getParameter("artist_id"));
-        String title = request.getParameter("title");
+        int artistId = Integer.parseInt(request.getParameter(ARTIST_ID_PARAMETER));
+        String title = request.getParameter(TITLE_PARAMETER);
         ServiceFactory factory = new ServiceFactory();
         AlbumService service = factory.getAlbumService();
         if (validator.validateInputText(title)) {
             service.save(new Album(title, artistId));
         }
-        return new ResponseContent(ResponseType.REDIRECT, CONTENT_PATH + artistId);
+        return new ResponseContent(ResponseType.REDIRECT, "music?command=view_albums&artist_id="+ artistId);
     }
 }

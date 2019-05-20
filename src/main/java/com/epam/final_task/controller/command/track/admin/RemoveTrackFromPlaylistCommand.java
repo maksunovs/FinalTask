@@ -6,7 +6,6 @@ import com.epam.final_task.model.entity.PlaylistTrack;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.PlaylistTrackService;
 import com.epam.final_task.service.ServiceFactory;
-import com.epam.final_task.service.implementaiton.PlaylistTrackServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -17,24 +16,23 @@ import java.util.Optional;
 
 public class RemoveTrackFromPlaylistCommand implements Command {
 
+    private static final String PLAYLIST_ID_PARAMETER = "playlist_id";
+    private static final String TRACK_ID_PARAMETER = "track_id";
+
     private static final String REFERER = "referer";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        int playlistId = Integer.parseInt(request.getParameter("playlist_id"));
-        int trackId = Integer.parseInt(request.getParameter("track_id"));
+        int playlistId = Integer.parseInt(request.getParameter(PLAYLIST_ID_PARAMETER));
+        int trackId = Integer.parseInt(request.getParameter(TRACK_ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
         PlaylistTrackService service = factory.PlaylistTrackservice();
         Optional<PlaylistTrack> relation = service.findByPlaylistIdAndAudioTrackId(playlistId, trackId);
-        ResponseContent responseContent;
         if (relation.isPresent()) {
             int id = relation.get().getId();
             service.removeById(id);
-            String contentPath = request.getHeader(REFERER);
-            responseContent = new ResponseContent(ResponseType.REDIRECT, contentPath);
-        } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT, "/error");
         }
-        return responseContent;
+        String contentPath = request.getHeader(REFERER);
+        return new ResponseContent(ResponseType.REDIRECT, contentPath);
     }
 }

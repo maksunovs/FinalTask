@@ -16,13 +16,17 @@ import java.util.Optional;
 
 public class LoginCommand implements Command {
 
-    private static final String CONTENT_PATH ="/music?command=home";
-        private static final  String INDEX_WITH_LOGIN_ERROR = "/?login=error.login";
+    private static final String LOGIN_PARAMETER = "login";
+    private static final String PASSWORD_PARAMETER = "password";
+
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String CONTENT_PATH = "music?command=home";
+    private static final String INDEX_WITH_LOGIN_ERROR = "/?login=error.login";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        String login = request.getParameter(LOGIN_PARAMETER);
+        String password = request.getParameter(PASSWORD_PARAMETER);
         System.out.println(request.getContextPath());
         ResponseContent responseContent;
         ServiceFactory factory = new ServiceFactory();
@@ -30,11 +34,11 @@ public class LoginCommand implements Command {
         Optional<User> user = service.login(login, password);
         if (user.isPresent()) {
             HttpSession session = request.getSession();
-            session.setAttribute("user",user.get());
-            responseContent = new ResponseContent(ResponseType.REDIRECT,CONTENT_PATH);
+            session.setAttribute(USER_ATTRIBUTE, user.get());
+            responseContent = new ResponseContent(ResponseType.REDIRECT, CONTENT_PATH);
         } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT,INDEX_WITH_LOGIN_ERROR);
+            responseContent = new ResponseContent(ResponseType.REDIRECT, INDEX_WITH_LOGIN_ERROR);
         }
-        return  responseContent;
+        return responseContent;
     }
 }

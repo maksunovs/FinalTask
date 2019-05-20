@@ -31,7 +31,7 @@ public class AuthorizationFilter implements Filter {
             "view_playlist",
             "save_playlist",
             "delete_playlist",
-            "remove_track_from_playlist",
+            "remove_audiotrack_from_playlist",
             "add_tracks_to_playlist",
             "add_track_to_playlist",
             "save_album",
@@ -64,20 +64,27 @@ public class AuthorizationFilter implements Filter {
     private final static List<String> IGNORED_COMMANDS = Arrays.asList("login",
             "change_language");
 
+
+    private static final String COMMAND_PARAMETER = "command";
+
+    private static final String USER_ATTRIBUTE = "user";
+
+    private static final String INDEX_PAGE = "index.jsp";
+
     private static final int NOT_FOUND_ERROR = 404;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        String command = request.getParameter("command");
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
+        String command = request.getParameter(COMMAND_PARAMETER);
 
         boolean withError = false;
 
         if (user == null) {
             if (!IGNORED_COMMANDS.contains(command)) {
-                request.getRequestDispatcher("index.jsp").forward(servletRequest, servletResponse);
+                request.getRequestDispatcher(INDEX_PAGE).forward(servletRequest, servletResponse);
                 withError = true;
             }
         } else {

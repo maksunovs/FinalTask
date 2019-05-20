@@ -1,4 +1,4 @@
-package com.epam.final_task.model.dao.implementation;
+package com.epam.final_task.model.dao.impl;
 
 import com.epam.final_task.builder.Builder;
 import com.epam.final_task.model.dao.AbstractDao;

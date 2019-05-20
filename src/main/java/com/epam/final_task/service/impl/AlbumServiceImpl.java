@@ -1,8 +1,8 @@
-package com.epam.final_task.service.implementaiton;
+package com.epam.final_task.service.impl;
 
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.implementation.AlbumDao;
+import com.epam.final_task.model.dao.impl.AlbumDao;
 import com.epam.final_task.model.entity.Album;
 import com.epam.final_task.service.AlbumService;
 import com.epam.final_task.service.exception.ServiceException;

@@ -13,14 +13,18 @@ import java.io.IOException;
 
 public class ChangeCurrencyCommand implements Command {
 
+    private static final String CURRENCY_PARAMETER = "currency";
+
+    private static final String CURRENCY_ATTRIBUTE = "currency";
+
     private static final String REFERER = "referer";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String currency = request.getParameter("currency");
+        String currency = request.getParameter(CURRENCY_PARAMETER);
         Currency newCurrency = Currency.valueOf(currency);
         HttpSession session = request.getSession();
-        session.setAttribute("currency", newCurrency);
+        session.setAttribute(CURRENCY_ATTRIBUTE, newCurrency);
         return new ResponseContent(ResponseType.REDIRECT, request.getHeader(REFERER));
     }
 }

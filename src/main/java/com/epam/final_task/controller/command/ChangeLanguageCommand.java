@@ -13,14 +13,18 @@ import java.io.IOException;
 
 public class ChangeLanguageCommand implements Command {
 
+    private static final String LANGUAGE_PARAMETER = "language";
+
+    private static final String LANGUAGE_ATTRIBUTE = "language";
+
     private static final String REFERER = "referer";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String language = request.getParameter("language");
+        String language = request.getParameter(LANGUAGE_PARAMETER);
         Language newLanguage = Language.valueOf(language);
         HttpSession session = request.getSession();
-        session.setAttribute("language", newLanguage);
+        session.setAttribute(LANGUAGE_ATTRIBUTE, newLanguage);
         return new ResponseContent(ResponseType.REDIRECT, request.getHeader(REFERER));
     }
 }

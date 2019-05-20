@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SavePlaylistCommand implements Command {
+
+    private static final String TITLE_PARAMETER = "title";
+
     private static final String CONTENT_PATH = "music?command=view_playlists";
 
     private final DataValidator validator;
@@ -25,7 +28,7 @@ public class SavePlaylistCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String title = request.getParameter("title");
+        String title = request.getParameter(TITLE_PARAMETER);
         Playlist playlist = new Playlist(title);
         ServiceFactory factory = new ServiceFactory();
         PlaylistService service = factory.getPlaylistService();

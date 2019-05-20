@@ -18,7 +18,12 @@ import java.math.BigDecimal;
 
 public class TopUpBalanceCommand implements Command {
 
+    private static final String AMOUNT_PARAMETER = "amount";
+
+    private static final String USER_ATTRIBUTE = "user";
+
     private static final String CONTENT_PATH = "music?command=top_up_balance_page";
+
     private final DataValidator validator;
 
     public TopUpBalanceCommand(DataValidator validator) {
@@ -28,8 +33,8 @@ public class TopUpBalanceCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        String stringAmount = request.getParameter("amount");
-        Client client = (Client) session.getAttribute("user");
+        String stringAmount = request.getParameter(AMOUNT_PARAMETER);
+        Client client = (Client) session.getAttribute(USER_ATTRIBUTE);
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getUserService();
         if (validator.validateValue(stringAmount)) {

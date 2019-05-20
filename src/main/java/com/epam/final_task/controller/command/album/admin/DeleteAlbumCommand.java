@@ -5,7 +5,6 @@ import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.AlbumService;
 import com.epam.final_task.service.ServiceFactory;
-import com.epam.final_task.service.implementaiton.AlbumServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -15,15 +14,16 @@ import java.io.IOException;
 
 public class DeleteAlbumCommand implements Command {
 
-    private static final String CONTENT_PATH = "music?command=view_albums&artist_id=";
+    private static final String ALBUM_ID_PARAMETER = "album_id";
+    private static final String ARTIST_ID_PARAMETER = "artist_id";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        int albumId = Integer.parseInt(request.getParameter("album_id"));
+        int albumId = Integer.parseInt(request.getParameter(ALBUM_ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
         AlbumService service = factory.getAlbumService();
         service.removeById(albumId);
-        String artistId = request.getParameter("artist_id");
-        return new ResponseContent(ResponseType.REDIRECT,CONTENT_PATH+artistId);
+        String artistId = request.getParameter(ARTIST_ID_PARAMETER);
+        return new ResponseContent(ResponseType.REDIRECT, "music?command=view_albums&artist_id=" + artistId);
     }
 }

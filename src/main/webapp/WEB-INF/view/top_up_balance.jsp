@@ -25,7 +25,7 @@
     <form action="music?command=top_up_balance" method="post" accept-charset="UTF-8">
         <h3 style="margin: 0"><fmt:message key="text.topUpBalance"/></h3><br/>
         USD
-        <input type="number" name="amount" min="0.1" step="0.1" max="100000" required><br/>
+        <input type="number" name="amount" min="0.1" step="0.1" max="1000000" required><br/>
         <button name="submit" type="submit"><fmt:message key="button.topUpBalance"/></button>
     </form>
 </div>

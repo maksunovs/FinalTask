@@ -3,6 +3,7 @@ package com.epam.final_task.controller;
 import com.epam.final_task.model.entity.ResponseType;
 
 public class ResponseContent {
+
     private final ResponseType responseType;
     private final String contentPath;
 

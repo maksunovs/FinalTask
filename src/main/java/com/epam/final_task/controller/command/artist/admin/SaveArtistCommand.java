@@ -16,7 +16,11 @@ import java.io.IOException;
 
 public class SaveArtistCommand implements Command {
 
+    private static final String NAME_PARAMETER="name";
+    private static final String COUNTRY_PARAMETER ="country";
+
     private static final String CONTENT_PATH = "music?command=add_artist";
+
     private final DataValidator validator;
 
     public SaveArtistCommand(DataValidator validator) {
@@ -25,8 +29,8 @@ public class SaveArtistCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String name = request.getParameter("name");
-        String country = request.getParameter("country");
+        String name = request.getParameter(NAME_PARAMETER);
+        String country = request.getParameter(COUNTRY_PARAMETER);
         ServiceFactory factory = new ServiceFactory();
         ArtistService service = factory.getArtistService();
         if (validator.validateInputText(name) && validator.validateCountyName(country)) {

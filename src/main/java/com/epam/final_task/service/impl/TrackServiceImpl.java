@@ -1,11 +1,11 @@
-package com.epam.final_task.service.implementaiton;
+package com.epam.final_task.service.impl;
 
-import com.epam.final_task.model.dao.implementation.OrderDao;
-import com.epam.final_task.model.dao.implementation.TrackDao;
+import com.epam.final_task.model.dao.impl.OrderDao;
+import com.epam.final_task.model.dao.impl.TrackDao;
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.implementation.UserDao;
-import com.epam.final_task.model.dao.implementation.UserTrackDao;
+import com.epam.final_task.model.dao.impl.UserDao;
+import com.epam.final_task.model.dao.impl.UserTrackDao;
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;

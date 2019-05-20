@@ -6,8 +6,6 @@ import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.PlaylistService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
-import com.epam.final_task.service.implementaiton.TrackServiceImpl;
-import com.epam.final_task.service.implementaiton.PlaylistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 import com.epam.final_task.service.helper.TrackStateInitializer;
 
@@ -20,8 +18,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class ViewPlaylistCommand implements Command {
+
+    private static final String ID_PARAMETER = "id";
+
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String TRACKS_ATTRIBUTE = "tracks";
+    private static final String PLAYLIST_ATTRIBUTE = "playlist";
+
+
     private static final String CONTENT_PATH = "WEB-INF/view/playlist.jsp";
-    private static final String REDIRECT_PATH = "music?command=view_playlists";
+    private static final String PLAYLISTS_PAGE = "music?command=view_playlists";
 
     private final TrackStateInitializer initializer;
 
@@ -32,8 +38,8 @@ public class ViewPlaylistCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        int id = Integer.parseInt(request.getParameter("id"));
+        User user = (User) session.getAttribute(USER_ATTRIBUTE);
+        int id = Integer.parseInt(request.getParameter(ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
         PlaylistService playlistService = factory.getPlaylistService();
         Optional<Playlist> playlist = playlistService.findById(id);
@@ -42,13 +48,13 @@ public class ViewPlaylistCommand implements Command {
         ResponseContent responseContent;
         if (playlist.isPresent()) {
             if (user.getRole() == Role.CLIENT) {
-                initializer.initializeStates(tracks,(Client)user);
+                initializer.initializeStates(tracks, (Client) user);
             }
-            request.setAttribute("tracks", tracks);
-            request.setAttribute("playlist", playlist.get());
+            request.setAttribute(TRACKS_ATTRIBUTE, tracks);
+            request.setAttribute(PLAYLIST_ATTRIBUTE, playlist.get());
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
         } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT, REDIRECT_PATH);
+            responseContent = new ResponseContent(ResponseType.REDIRECT, PLAYLISTS_PAGE);
         }
         return responseContent;
     }

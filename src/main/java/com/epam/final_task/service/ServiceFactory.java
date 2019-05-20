@@ -1,6 +1,6 @@
 package com.epam.final_task.service;
 
-import com.epam.final_task.service.implementaiton.*;
+import com.epam.final_task.service.impl.*;
 
 public class ServiceFactory {
     public AlbumService getAlbumService(){

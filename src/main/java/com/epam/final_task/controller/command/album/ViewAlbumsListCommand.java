@@ -8,8 +8,6 @@ import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.service.AlbumService;
 import com.epam.final_task.service.ArtistService;
 import com.epam.final_task.service.ServiceFactory;
-import com.epam.final_task.service.implementaiton.AlbumServiceImpl;
-import com.epam.final_task.service.implementaiton.ArtistServiceImpl;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -20,24 +18,30 @@ import java.util.List;
 import java.util.Optional;
 
 public class ViewAlbumsListCommand implements Command {
+    private static final String ARTIST_ID_PARAMETER = "artist_id";
+
+    private static final String ALBUMS_ATTRIBUTE = "albums";
+    private static final String ARTIST_ATTRIBUTE = "artist";
+
+    private static final String ARTISTS_PAGE = "music?view_artists";
 
     private static final String CONTENT_PATH = "WEB-INF/view/albums.jsp";
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        int artistId = Integer.parseInt(request.getParameter("artist_id"));
+        int artistId = Integer.parseInt(request.getParameter(ARTIST_ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
-        AlbumService albumService =factory.getAlbumService();
+        AlbumService albumService = factory.getAlbumService();
         ArtistService artistService = factory.getArtistService();
         Optional<Artist> artist = artistService.findById(artistId);
         ResponseContent responseContent;
         if (artist.isPresent()) {
             List<Album> albums = albumService.findByArtistId(artistId);
-            request.setAttribute("artist", artist.get());
-            request.setAttribute("albums", albums);
+            request.setAttribute(ARTIST_ATTRIBUTE, artist.get());
+            request.setAttribute(ALBUMS_ATTRIBUTE, albums);
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
         } else {
-            responseContent = new ResponseContent(ResponseType.REDIRECT, "music?command=view_artists");
+            responseContent = new ResponseContent(ResponseType.REDIRECT, ARTISTS_PAGE);
         }
         return responseContent;
     }
