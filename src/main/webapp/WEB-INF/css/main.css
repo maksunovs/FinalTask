@@ -41,7 +41,7 @@
     background: none;
 }
 #edit_button{
-    margin:2px 10px;
+    margin:2px 0px;
     padding: 8px;
     min-width: 70px;
     color: #888888;
@@ -58,7 +58,7 @@
     flex-grow:1;
     display: flex;
     background-color: #ffffff;
-    margin: 2px 10px;
+    margin: 2px 10px 2px 0px;
     padding: 7px 10px;
 }
 .buttons{
@@ -67,7 +67,15 @@
     display: flex;
     justify-content:flex-end;
 }
+.buttons form{
+    margin: 0;
+    height: 18.4px;
 
+}
+.buttons form button{
+    height:100%;
+
+}
 .track ul {
     list-style-type: none;
     padding: 0;
@@ -84,13 +92,14 @@
 }
 
 
-.track button {
+.buttons button {
     background: none;
     margin: 0 4px;
     padding: 0;
     border: none;
     outline: none;
     cursor: pointer;
+
 }
 
 .track a {

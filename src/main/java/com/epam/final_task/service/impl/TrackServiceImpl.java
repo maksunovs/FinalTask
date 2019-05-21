@@ -1,11 +1,8 @@
 package com.epam.final_task.service.impl;
 
-import com.epam.final_task.model.dao.impl.OrderDao;
-import com.epam.final_task.model.dao.impl.TrackDao;
+import com.epam.final_task.model.dao.impl.*;
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.impl.UserDao;
-import com.epam.final_task.model.dao.impl.UserTrackDao;
 import com.epam.final_task.model.entity.*;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;
@@ -159,6 +156,7 @@ public class TrackServiceImpl implements TrackService {
             throw new ServiceException("Failed to upload tracks", e);
         }
     }
+
     public void buyTrack(User user, Track track) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             try {
@@ -167,16 +165,24 @@ public class TrackServiceImpl implements TrackService {
                 OrderDao orderDao = factory.getOrderDao();
                 Optional<Order> order = orderDao.findByUserId(user.getId());
                 List<Track> orderedTracks = new ArrayList<>();
-                if(order.isPresent()){
+                if (order.isPresent()) {
                     orderedTracks = trackDao.findOrderedTracks(order.get().getId());
                 }
                 BigDecimal trackPrice = track.getPrice();
                 UserDao userDao = factory.getUserDAO();
                 BigDecimal clientCash = userDao.findCash(user.getId());
-                if (purchasedTracks.contains(track)||orderedTracks.contains(track)||trackPrice.compareTo(clientCash)>0) {
+                if (purchasedTracks.contains(track) ||  trackPrice.compareTo(clientCash) > 0) {
                     return;
                 }
+
                 factory.startTransaction();
+                if (orderedTracks.contains(track)) {
+                    OrderTrackDao orderTrackDao = factory.getOrderTrackDao();
+                    Optional<OrderTrack> orderTrack = orderTrackDao.findByOrderIdAndTrackId(order.get().getId(), track.getId());
+                    if (orderTrack.isPresent()) {
+                        orderTrackDao.removeById(orderTrack.get().getId());
+                    }
+                }
                 UserTrackDao userTrackDao = factory.getUserTrackDao();
                 userTrackDao.save(new UserTrack(user.getId(), track.getId()));
                 BigDecimal newCash = clientCash.add(trackPrice.negate());

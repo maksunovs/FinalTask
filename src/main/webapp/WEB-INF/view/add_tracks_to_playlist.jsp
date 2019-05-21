@@ -27,18 +27,8 @@
     <br/><br/>
     <c:forEach var="audiotrack" items="${audiotracks}">
         <div style="display: flex; height: 37px;">
-            <div class="track">
-                <ul>
-                    <li class="track info"><a href="#"><c:out value="${audiotrack.getArtist()}"/></a></li>
-                    <li class="track info"><a href="#"><c:out value="${audiotrack.getTitle()}"/></a></li>
-                </ul>
-                <div class="buttons">
-                <button onclick="location.href='music?command=delete_audiotrack&id=${audiotrack.getId()}'"
-                        title="<fmt:message key="button.title.delete.track"/>"><i
-                        class='fas fa-trash-alt'></i>
-                </button>
-                </div>
-            </div>
+            <c:set var="track" value="${audiotrack}" scope="request"/>
+            <jsp:include page="track.jsp"/>
             <button id="edit_button"
                     onclick="location.href='music?command=add_track_to_playlist&playlist_id=${playlist.getId()}&audiotrack_id=${audiotrack.getId()}'"
                     title="<fmt:message key="button.title.add.toPlaylist"/>"><fmt:message key="button.add"/>

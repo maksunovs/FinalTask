@@ -30,13 +30,17 @@
                     title="<fmt:message key="button.title.delete.artist"/>"><i
                     style="font-size:13px;" class='fas fa-trash-alt'></i></button>
         </c:if>
+        <br/><span style="font-size: 14px; color: #888888"><c:out value="${artist.getCountry()}"/></span>
         <br/><br/>
         <div class="page-nav">
             <a style="border-bottom: 2px solid #ff6200" href="music?command=view_artist&id=${artist.getId()}"><fmt:message key="artist.link.tracks"/></a>
             <a href="music?command=view_albums&artist_id=${artist.getId()}"><fmt:message key="artist.link.albums"/></a>
         </div>
         <br/>
-        <jsp:include page="tracks.jsp"/>
+        <c:forEach var="track" items="${tracks}">
+            <c:set var="track" value="${track}" scope="request"/>
+            <jsp:include page="track.jsp"/>
+        </c:forEach>
     </div>
 
     <jsp:include page="footer.jsp"/>

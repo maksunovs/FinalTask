@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Music store</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -53,10 +52,12 @@
                 }
             }
         </script>
-        <div class="column menu"></div>
+        <div style="margin-right: 10px" class="column menu"></div>
         <div class="column main">
-            <jsp:include page="tracks.jsp"/>
-
+            <c:forEach var="track" items="${tracks}">
+                <c:set var="track" value="${track}" scope="request"/>
+                <jsp:include page="track.jsp"/>
+            </c:forEach>
         </div>
 
     </div>

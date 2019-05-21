@@ -30,6 +30,14 @@
                 <li class="track info"><a href="#"><c:out value="${track.getTitle()}"/></a></li>
             </ul>
             <span><ctg:currencystamp value="${track.getPrice()}"/></span>
+            <div class="buttons">
+                <form action="music?command=buy_track&track_id=${track.getId()}" method="post">
+                    <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)"
+                            title="<fmt:message key="button.title.buy"/>"><i
+                            class='fas fa-cart-arrow-down'></i>
+                    </button>
+                </form>
+            </div>
         </div>
         <button id="edit_button"
                 onclick="location.href='music?command=remove_from_cart&track_id=${track.getId()}'"
@@ -41,7 +49,7 @@
     <div style="width: 90%; display: flex;">
         <form action="music?command=pay_order" method="get">
 
-        <button value="${value}" style=" padding: 4px 10px; margin-left: 10px;" id="add_button" onclick=check(this)><fmt:message key="button.pay"/></button>
+        <button value="${value}" style=" padding: 4px 10px; " id="add_button" onclick=check(this)><fmt:message key="button.pay"/></button>
         </form>
         <div style="padding: 4px 20px;"><ctg:currencystamp value="${value}"/></div>
     </div>

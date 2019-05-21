@@ -32,7 +32,8 @@
                 style="font-size:13px;" class='fas fa-trash-alt'></i></button>
 
     </c:if>
-    <br/> <br/>
+    <br/> <span style="font-size: 14px; color: #888888"><c:out value="${artist.getCountry()}"/></span>
+    <br/><br/>
     <div class="page-nav">
         <a href="music?command=view_artist&id=${artist.getId()}"><fmt:message key="artist.link.tracks"/></a>
         <a style="border-bottom: 2px solid #ff6200"
@@ -58,43 +59,8 @@
     </c:if><br/>
     <c:forEach var="track" items="${tracks}">
         <div style="display: flex; height: 37px;">
-            <div class="track">
-                <ul>
-                    <li class="track info"><a href="#"><c:out value="${track.getArtist()}"/></a></li>
-                    <li class="track info"><a href="#"><c:out value="${track.getTitle()}"/></a></li>
-                </ul>
-                <c:if test="${track.getState().getValue()=='in_store'}">
-                    <span><ctg:currencystamp value="${track.getPrice()}"/></span>
-                </c:if>
-                <div class="buttons">
-                    <c:choose>
-                        <c:when test="${user.getRole().getValue()=='client'}">
-                            <c:choose>
-                                <c:when test="${track.getState().getValue()=='in_store'}">
-                                    <form action="music?command=buy_track&track_id=${track.getId()}" method="post">
-                                        <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)" title="<fmr:message key="button.title.buy"/>"><i
-                                                class='fas fa-cart-arrow-down'></i>
-                                        </button>
-                                    </form>
-                                    <button  onclick="location.href='music?command=add_to_cart&track_id=${track.getId()}'" title="<fmt:message key="button.title.addToCart"/>"><i
-                                            class='fas fa-plus'></i>
-                                    </button>
-                                </c:when>
-                                <c:when test="${track.getState().getValue()=='ordered'}">
-                                    <span><fmt:message key="text.inCart"/></span>
-                                </c:when>
-                            </c:choose>
-                        </c:when>
-                        <c:when test="${user.getRole().getValue()=='admin'}">
-                            <button onclick="location.href='music?command=delete_audiotrack&id=${track.getId()}'"
-                                    title="<fmt:message key="button.title.delete.track"/>"><i
-                                    class='fas fa-trash-alt'></i>
-                            </button>
-                        </c:when>
-                    </c:choose>
-                </div>
-
-            </div>
+            <c:set var="track" value="${track}" scope="request"/>
+            <jsp:include page="track.jsp"/>
             <c:if test="${user.getRole().getValue()=='admin'}">
                 <button id="edit_button"
                         onclick="location.href='music?command=remove_track_from_album&track_id=${track.getId()}'"
