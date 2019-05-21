@@ -6,14 +6,18 @@ import com.epam.final_task.model.dao.exception.ConnectionException;
 import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.dao.impl.*;
 import com.epam.final_task.util.Hasher;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DaoFactory implements AutoCloseable {
+
+    private static final Logger LOGGER = Logger.getLogger(DaoFactory.class);
+
     private Connection connection;
 
-    public DaoFactory()  {
+    public DaoFactory() {
         this.connection = ConnectionPool.getInstance().getConnection();
     }
 
@@ -57,6 +61,7 @@ public class DaoFactory implements AutoCloseable {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Failed to start transaction", e);
         }
     }
@@ -66,7 +71,8 @@ public class DaoFactory implements AutoCloseable {
             connection.commit();
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException("Failed to start transaction", e);
+            LOGGER.error(e.getMessage());
+            throw new DaoException("Failed to finish transaction", e);
         }
     }
 
@@ -75,7 +81,8 @@ public class DaoFactory implements AutoCloseable {
             connection.rollback();
             connection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException("Failed to start transaction", e);
+            LOGGER.error(e.getMessage());
+            throw new DaoException("Failed to rollback transaction", e);
         }
     }
 

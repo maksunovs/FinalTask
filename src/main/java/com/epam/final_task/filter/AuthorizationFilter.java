@@ -1,8 +1,5 @@
 package com.epam.final_task.filter;
 
-import com.epam.final_task.model.entity.AdminCommand;
-import com.epam.final_task.model.entity.ClientCommand;
-import com.epam.final_task.model.entity.IgnoredCommand;
 import com.epam.final_task.model.entity.User;
 
 import javax.servlet.*;
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class AuthorizationFilter implements Filter {
 

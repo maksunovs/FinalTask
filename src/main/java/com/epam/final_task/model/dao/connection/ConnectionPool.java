@@ -19,7 +19,7 @@ public class ConnectionPool {
     private static final int POOL_SIZE = 10;
     private static final Semaphore SEMAPHORE = new Semaphore(POOL_SIZE);
 
-    private static volatile ConnectionPool instance = new ConnectionPool();
+    private static final ConnectionPool INSTANCE = new ConnectionPool();
     private final Queue<Connection> pool = new ArrayDeque<>();
 
     private ConnectionPool() {
@@ -27,7 +27,7 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     private void init() {
@@ -39,25 +39,29 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() {
-        Connection connection = null;
         try {
             SEMAPHORE.acquire();
             LOCKER.lock();
-            connection = pool.poll();
+            return pool.poll();
         } catch (InterruptedException e) {
             LOGGER.error(e.getMessage(), e);
+            throw new ConnectionException("Failed to get connection", e);
         } finally {
             LOCKER.unlock();
         }
-        return connection;
     }
 
     public void returnConnection(Connection connection) {
-        pool.add(connection);
-        SEMAPHORE.release();
+        try {
+            LOCKER.lock();
+            pool.add(connection);
+        } finally {
+            LOCKER.unlock();
+            SEMAPHORE.release();
+        }
     }
 
-    public void closeAll()  {
+    public void closeAll() {
         try {
             LOCKER.lock();
             try {

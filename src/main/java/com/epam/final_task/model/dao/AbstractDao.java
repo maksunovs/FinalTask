@@ -27,6 +27,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try (PreparedStatement preparedStatement = prepareStatement(query, params)) {
             preparedStatement.execute();
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Failed to update data", e);
         }
     }
@@ -44,6 +45,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             }
             preparedStatement.execute();
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Saving error", e);
         }
     }
@@ -56,6 +58,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
         try (PreparedStatement preparedStatement = prepareStatement(deleteQuery, id)) {
             preparedStatement.execute();
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Removing error", e);
         }
 
@@ -79,6 +82,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             }
             resultSet.close();
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Query execution exception", e);
         }
         return result;
@@ -101,6 +105,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             }
             return preparedStatement;
         } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
             throw new DaoException("Prepare statement error", e);
         }
     }

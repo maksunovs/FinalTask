@@ -188,8 +188,10 @@ public class TrackServiceImpl implements TrackService {
                 try {
                     factory.rollback();
                 } catch (DaoException err) {
+                    LOGGER.error(err.getMessage());
                     throw new ServiceException("Failed to buy track", e);
                 }
+                LOGGER.error(e.getMessage());
                 throw new ServiceException("Failed to buy track", e);
             }
         }

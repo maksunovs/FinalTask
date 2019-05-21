@@ -27,7 +27,6 @@ public class LoginCommand implements Command {
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         String login = request.getParameter(LOGIN_PARAMETER);
         String password = request.getParameter(PASSWORD_PARAMETER);
-        System.out.println(request.getContextPath());
         ResponseContent responseContent;
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getUserService();
