@@ -26,8 +26,8 @@
     <div style="display: flex; height: 37px; ">
         <div class="track">
             <ul>
-                <li class="track info"><a href="#"><c:out value="${track.getArtist()}"/></a></li>
-                <li class="track info"><a href="#"><c:out value="${track.getTitle()}"/></a></li>
+                <li class="track info"><a href="music?command=view_artist&id=${track.getArtistId()}"><c:out value="${track.getArtist()}"/></a></li>
+                <li class="track info"><c:out value="${track.getTitle()}"/></li>
             </ul>
             <span><ctg:currencystamp value="${track.getPrice()}"/></span>
             <div class="buttons">
