@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public BigDecimal findCash(int userId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             UserDao userDao = factory.getUserDAO();
-            return  userDao.findCash(userId);
+            return userDao.findCash(userId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
             throw new ServiceException("Failed to find cash", e);

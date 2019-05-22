@@ -15,8 +15,8 @@ public class TrackStateInitializer {
     public void initializeStates(List<Track> tracks, Client client) throws ServiceException {
         OrderService orderService = new OrderServiceImpl();
         Optional<Order> order = orderService.findByUserId(client.getId());
-        if(!order.isPresent()){
-            throw  new ServiceException("Cart is not exist");
+        if (!order.isPresent()) {
+            throw new ServiceException("Cart is not exist");
         }
         ServiceFactory factory = new ServiceFactory();
         TrackService trackService = factory.getTrackService();

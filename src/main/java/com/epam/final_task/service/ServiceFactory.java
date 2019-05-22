@@ -3,35 +3,35 @@ package com.epam.final_task.service;
 import com.epam.final_task.service.impl.*;
 
 public class ServiceFactory {
-    public AlbumService getAlbumService(){
+    public AlbumService getAlbumService() {
         return new AlbumServiceImpl();
     }
 
-    public ArtistService getArtistService(){
+    public ArtistService getArtistService() {
         return new ArtistServiceImpl();
     }
 
-    public OrderService getOrderService(){
+    public OrderService getOrderService() {
         return new OrderServiceImpl();
     }
 
-    public OrderTrackService getOrderTrackService(){
+    public OrderTrackService getOrderTrackService() {
         return new OrderTrackServiceImpl();
     }
 
-    public PlaylistService getPlaylistService(){
+    public PlaylistService getPlaylistService() {
         return new PlaylistServiceImpl();
     }
 
-    public PlaylistTrackService PlaylistTrackservice(){
+    public PlaylistTrackService PlaylistTrackservice() {
         return new PlaylistTrackServiceImpl();
     }
 
-    public TrackService getTrackService(){
+    public TrackService getTrackService() {
         return new TrackServiceImpl();
     }
 
-    public UserService getUserService(){
+    public UserService getUserService() {
         return new UserServiceImpl();
     }
 }

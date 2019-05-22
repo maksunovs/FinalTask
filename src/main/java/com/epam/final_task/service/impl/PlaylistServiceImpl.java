@@ -28,7 +28,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     public void save(Playlist playlist) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
-          PlaylistDao playlistDao = factory.getPlaylistDao();
+            PlaylistDao playlistDao = factory.getPlaylistDao();
             playlistDao.save(playlist);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
@@ -45,13 +45,14 @@ public class PlaylistServiceImpl implements PlaylistService {
             throw new ServiceException("Failed to delete playlist", e);
         }
     }
+
     public Optional<Playlist> findById(int id) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             PlaylistDao playlistDao = factory.getPlaylistDao();
             return playlistDao.findById(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to delete playlist", e);
+            throw new ServiceException("Failed to upload playlist", e);
         }
     }
 }

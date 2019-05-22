@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
             try {
                 UserDao userDao = factory.getUserDAO();
                 BigDecimal clientCash = userDao.findCash(user.getId());
-                if(clientCash.compareTo(value)<0){
+                if (clientCash.compareTo(value) < 0) {
                     return;
                 }
                 factory.startTransaction();
@@ -61,15 +61,15 @@ public class OrderServiceImpl implements OrderService {
                 userDao.updateClientCash(newCash, user.getId());
                 ((Client) user).setCash(newCash);
                 factory.finishTransaction();
-            }catch (DaoException e) {
-                try{
+            } catch (DaoException e) {
+                try {
                     factory.rollback();
-                }catch (DaoException err){
+                } catch (DaoException err) {
                     LOGGER.error(e.getMessage());
-                    throw new ServiceException("Failed to remove order", e);
+                    throw new ServiceException("Failed to pay order", e);
                 }
                 LOGGER.error(e.getMessage());
-                throw new ServiceException("Failed to remove order", e);
+                throw new ServiceException("Failed to pay order", e);
             }
         }
     }

@@ -10,4 +10,5 @@ public interface Dao<T> {
     Optional<T>findById(int id) throws DaoException;
     void save (T t) throws DaoException;
     void removeById(int id) throws DaoException;
+
 }

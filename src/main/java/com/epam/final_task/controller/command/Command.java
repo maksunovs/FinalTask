@@ -9,5 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface Command {
-    ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException,ServiceException;
+
+    ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException;
 }

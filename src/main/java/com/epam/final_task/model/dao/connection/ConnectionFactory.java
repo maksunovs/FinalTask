@@ -13,6 +13,9 @@ import java.util.Properties;
 public class ConnectionFactory {
     private static final String PROPERTIES_PATH = "database.properties";
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL_PROPERTY = "url";
+    private static final String USER_PROPERTY = "user";
+    private static final String PASSWORD_PROPERTY = "password";
     private final String url;
     private final String user;
     private final String password;
@@ -23,9 +26,9 @@ public class ConnectionFactory {
         try {
             Class.forName(DRIVER);
             Properties properties = propertyLoader.load(PROPERTIES_PATH);
-            url = properties.getProperty("url");
-            user = properties.getProperty("user");
-            password = properties.getProperty("password");
+            url = properties.getProperty(URL_PROPERTY);
+            user = properties.getProperty(USER_PROPERTY);
+            password = properties.getProperty(PASSWORD_PROPERTY);
         } catch (ClassNotFoundException e) {
             LOGGER.error(e.getMessage());
             throw new ConnectionException("Class com.mysql.cj.jdbc.Driver not found", e);

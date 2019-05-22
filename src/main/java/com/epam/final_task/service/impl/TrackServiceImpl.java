@@ -113,7 +113,7 @@ public class TrackServiceImpl implements TrackService {
             trackDao.removeTrackFromAlbum(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to upload tracks", e);
+            throw new ServiceException("Failed to remove tracks", e);
         }
     }
 
@@ -123,7 +123,7 @@ public class TrackServiceImpl implements TrackService {
             trackDao.addTrackToAlbum(trackId, albumId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to upload tracks", e);
+            throw new ServiceException("Failed to add track to album", e);
         }
     }
 
@@ -153,7 +153,7 @@ public class TrackServiceImpl implements TrackService {
             return trackDao.findById(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to upload tracks", e);
+            throw new ServiceException("Failed to upload track", e);
         }
     }
 
@@ -171,7 +171,7 @@ public class TrackServiceImpl implements TrackService {
                 BigDecimal trackPrice = track.getPrice();
                 UserDao userDao = factory.getUserDAO();
                 BigDecimal clientCash = userDao.findCash(user.getId());
-                if (purchasedTracks.contains(track) ||  trackPrice.compareTo(clientCash) > 0) {
+                if (purchasedTracks.contains(track) || trackPrice.compareTo(clientCash) > 0) {
                     return;
                 }
 

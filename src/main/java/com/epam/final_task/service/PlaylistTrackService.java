@@ -9,7 +9,7 @@ public interface PlaylistTrackService {
 
     void save(int playlistId, int audioTrackId) throws ServiceException;
 
-    Optional<PlaylistTrack> findByPlaylistIdAndAudioTrackId(int playlistId, int audiotrackId) throws ServiceException ;
+    Optional<PlaylistTrack> findByPlaylistIdAndAudioTrackId(int playlistId, int audiotrackId) throws ServiceException;
 
-    void removeById(int id) throws ServiceException ;
+    void removeById(int id) throws ServiceException;
 }

@@ -3,7 +3,7 @@ package com.epam.final_task.model.entity;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Track extends Entity{
+public class Track extends Entity {
     private Integer id;
     private String artist;
     private Integer artistId;

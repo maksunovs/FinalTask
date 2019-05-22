@@ -33,7 +33,7 @@ public class CurrencyStampTag extends TagSupport {
             }
             pageContext.getOut().write(message);
         } catch (IOException e) {
-            throw new JspException(e.getMessage(),e);
+            throw new JspException(e.getMessage(), e);
         }
         return SKIP_BODY;
     }

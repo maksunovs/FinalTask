@@ -29,10 +29,10 @@ public class OrderTrackServiceImpl implements OrderTrackService {
     public Optional<OrderTrack> findByOrderIdAndTrackId(int orderId, int trackId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             OrderTrackDao orderTrackDao = factory.getOrderTrackDao();
-            return orderTrackDao.findByOrderIdAndTrackId(orderId,trackId);
+            return orderTrackDao.findByOrderIdAndTrackId(orderId, trackId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to find order", e);
+            throw new ServiceException("Failed to find relation", e);
         }
     }
 

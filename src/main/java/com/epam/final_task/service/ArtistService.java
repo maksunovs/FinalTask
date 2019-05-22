@@ -8,12 +8,11 @@ import java.util.Optional;
 
 public interface ArtistService {
 
-    void save(Artist artist) throws ServiceException ;
+    void save(Artist artist) throws ServiceException;
 
-    Optional<Artist> findById(int id) throws ServiceException ;
+    Optional<Artist> findById(int id) throws ServiceException;
 
+    List<Artist> findAll() throws ServiceException;
 
-    List<Artist> findAll() throws ServiceException ;
-
-    void removeById(int id) throws ServiceException ;
+    void removeById(int id) throws ServiceException;
 }

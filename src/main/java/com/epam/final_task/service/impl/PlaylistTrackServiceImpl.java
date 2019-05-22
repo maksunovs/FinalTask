@@ -20,17 +20,17 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService {
             dao.save(new PlaylistTrack(playlistId, audioTrackId));
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to delete playlist", e);
+            throw new ServiceException("Failed to save relation", e);
         }
     }
 
     public Optional<PlaylistTrack> findByPlaylistIdAndAudioTrackId(int playlistId, int audiotrackId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             PlaylistTrackDao dao = factory.getPlaylistTrackDao();
-            return dao.findRelationByPlaylistIdAndTrackId(playlistId,audiotrackId);
+            return dao.findRelationByPlaylistIdAndTrackId(playlistId, audiotrackId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to delete playlist", e);
+            throw new ServiceException("Failed to find relation", e);
         }
     }
 
@@ -40,7 +40,7 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService {
             dao.removeById(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to delete playlist", e);
+            throw new ServiceException("Failed to remove relation", e);
         }
     }
 }

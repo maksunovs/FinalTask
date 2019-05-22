@@ -21,7 +21,7 @@ public class AlbumServiceImpl implements AlbumService {
             return dao.findByArtistId(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to upload artist", e);
+            throw new ServiceException("Failed to upload album", e);
         }
     }
 
@@ -31,7 +31,7 @@ public class AlbumServiceImpl implements AlbumService {
             return dao.findById(id);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException("Failed to upload artist", e);
+            throw new ServiceException("Failed to upload album", e);
         }
     }
 

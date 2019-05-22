@@ -1,7 +1,7 @@
 package com.epam.final_task.model.entity;
 
 
-public abstract class User extends Entity{
+public abstract class User extends Entity {
     private int id;
     private String login;
     private String password;
@@ -70,12 +70,12 @@ public abstract class User extends Entity{
         hash = hash * prime + (name == null ? 0 : name.hashCode());
         hash = hash * prime + (surname == null ? 0 : surname.hashCode());
         hash = hash * prime + (role == null ? 0 : role.hashCode());
-        return hash*prime;
+        return hash * prime;
     }
 
     @Override
     public String toString() {
-        return  "id=" + id +
+        return "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
