@@ -22,7 +22,7 @@ public class SaveTrackCommand implements Command {
     private static final String GENRE_PARAMETER = "genre";
     private static final String PRICE_PARAMETER = "price";
 
-    private static final String CONTENT_PATH = "music?command=add_audiotrack";
+    private static final String CONTENT_PATH = "music?command=add_track";
 
     private final DataValidator validator;
 

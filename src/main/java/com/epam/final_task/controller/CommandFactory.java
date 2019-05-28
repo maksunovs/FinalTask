@@ -10,7 +10,7 @@ import com.epam.final_task.controller.command.artist.admin.AddArtistCommand;
 import com.epam.final_task.controller.command.artist.admin.DeleteArtistCommand;
 import com.epam.final_task.controller.command.artist.admin.SaveArtistCommand;
 import com.epam.final_task.controller.command.track.client.AddTrackToCartCommand;
-import com.epam.final_task.controller.command.cart.PayOrderCommand;
+import com.epam.final_task.controller.command.cart.PayCartCommand;
 import com.epam.final_task.controller.command.cart.ShowCartCommand;
 import com.epam.final_task.controller.command.client.TopUpBalanceCommand;
 import com.epam.final_task.controller.command.client.TopUpBalancePageCommand;
@@ -35,13 +35,13 @@ public class CommandFactory {
             case "login":
                 command = new LoginCommand();
                 break;
-            case "add_audiotrack":
+            case "add_track":
                 command = new AddTrackCommand();
                 break;
-            case "delete_audiotrack":
+            case "delete_track":
                 command = new DeleteTrackCommand();
                 break;
-            case "save_audiotrack":
+            case "save_track":
                 command = new SaveTrackCommand(new DataValidator());
                 break;
             case "view_artists":
@@ -71,7 +71,7 @@ public class CommandFactory {
             case "delete_playlist":
                 command = new DeletePlaylistCommand();
                 break;
-            case "remove_audiotrack_from_playlist":
+            case "remove_track_from_playlist":
                 command = new RemoveTrackFromPlaylistCommand();
                 break;
             case "add_tracks_to_playlist":
@@ -116,8 +116,8 @@ public class CommandFactory {
             case "remove_from_cart":
                 command = new RemoveTrackFromCartCommand();
                 break;
-            case "pay_order":
-                command = new PayOrderCommand();
+            case "pay_cart":
+                command = new PayCartCommand();
                 break;
             case "top_up_balance_page":
                 command = new TopUpBalancePageCommand();

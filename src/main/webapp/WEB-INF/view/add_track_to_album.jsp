@@ -19,7 +19,7 @@
 <jsp:include page="header.jsp"/>
 <div class="content" style="padding: 0 10px">
     <button id="back_button" onclick="location.href='music?command=view_artists'"
-            ><fmt:message key="album.edit.button.back"/>
+            ><fmt:message key="artist.button.back"/>
     </button>
     <br/>
     <span style="font-size: 20px;  border-bottom: 1px solid; border-color: #ccc;"><c:out
@@ -27,6 +27,7 @@
     <button id="delete-button" onclick="location.href='music?command=delete_artist&id=${artist.getId()}'"
             title="Delete artist"><i
             style="font-size:13px;" class='fas fa-trash-alt'></i></button>
+    <br/><span style="font-size: 14px; color: #888888"><c:out value="${artist.getCountry()}"/></span>
     <br/><br/>
     <div class="page-nav">
         <a href="music?command=view_artist&id=${artist.getId()}"><fmt:message key="artist.link.tracks"/></a>

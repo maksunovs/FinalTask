@@ -11,12 +11,12 @@ public class ServiceFactory {
         return new ArtistServiceImpl();
     }
 
-    public OrderService getOrderService() {
-        return new OrderServiceImpl();
+    public CartService getCartService() {
+        return new CartServiceImpl();
     }
 
-    public OrderTrackService getOrderTrackService() {
-        return new OrderTrackServiceImpl();
+    public CartTrackService getCartTrackService() {
+        return new CartTrackServiceImpl();
     }
 
     public PlaylistService getPlaylistService() {

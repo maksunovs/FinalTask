@@ -3,7 +3,7 @@ package com.epam.final_task.model.entity;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Track extends Entity {
+public class Track extends Entity implements Comparable<Track>{
     private Integer id;
     private String artist;
     private Integer artistId;
@@ -64,6 +64,15 @@ public class Track extends Entity {
 
     public TrackState getState() {
         return state;
+    }
+
+    @Override
+    public int compareTo(Track o) {
+        int result = this.artist.compareTo(o.artist);
+        if(result==0){
+            result=this.title.compareTo(o.title);
+        }
+        return result;
     }
 
     @Override

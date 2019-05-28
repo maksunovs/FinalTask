@@ -3,8 +3,8 @@ package com.epam.final_task.controller.command.track.client;
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.*;
-import com.epam.final_task.service.OrderService;
-import com.epam.final_task.service.OrderTrackService;
+import com.epam.final_task.service.CartService;
+import com.epam.final_task.service.CartTrackService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.TrackService;
 import com.epam.final_task.service.exception.ServiceException;
@@ -31,16 +31,16 @@ public class AddTrackToCartCommand implements Command {
         Client client = (Client) session.getAttribute(USER_ATTRIBUTE);
         int trackId = Integer.parseInt(request.getParameter(TRACK_ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
-        OrderService orderService = factory.getOrderService();
+        CartService cartService = factory.getCartService();
         TrackService trackService = factory.getTrackService();
         Optional<Track> track = trackService.findById(trackId);
-        Optional<Order> order = orderService.findByUserId(client.getId());
-        OrderTrackService orderTrackService = factory.getOrderTrackService();
-        if (order.isPresent() && track.isPresent()) {
+        Optional<Cart> cart = cartService.findByUserId(client.getId());
+        CartTrackService cartTrackService = factory.getCartTrackService();
+        if (cart.isPresent() && track.isPresent()) {
             List<Track> purchasedTracks = trackService.findPurchasedTracks(client.getId());
-            List<Track> orderedTracks = trackService.findOrderedTracks(order.get().getId());
-            if (!purchasedTracks.contains(track.get()) && !orderedTracks.contains(track.get())) {
-                orderTrackService.save(new OrderTrack(order.get().getId(), trackId));
+            List<Track> tracksInCart = trackService.findTracksInCart(cart.get().getId());
+            if (!purchasedTracks.contains(track.get()) && !tracksInCart.contains(track.get())) {
+                cartTrackService.save(new CartTrack(cart.get().getId(), trackId));
 
             }
         }

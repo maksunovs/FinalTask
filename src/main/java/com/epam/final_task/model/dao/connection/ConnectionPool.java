@@ -19,7 +19,7 @@ public class ConnectionPool {
     private static final int POOL_SIZE = 10;
     private static final Semaphore SEMAPHORE = new Semaphore(POOL_SIZE);
 
-    private static final ConnectionPool INSTANCE = new ConnectionPool();
+    private static volatile ConnectionPool instance;
     private final Queue<Connection> pool = new ArrayDeque<>();
 
     private ConnectionPool() {
@@ -27,7 +27,17 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
-        return INSTANCE;
+        if (instance == null) {
+            LOCKER.lock();
+            try {
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                }
+            } finally {
+                LOCKER.unlock();
+            }
+        }
+        return instance;
     }
 
     private void init() {

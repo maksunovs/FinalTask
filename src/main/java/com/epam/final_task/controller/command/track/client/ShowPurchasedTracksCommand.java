@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class ShowPurchasedTracksCommand implements Command {
@@ -31,6 +32,7 @@ public class ShowPurchasedTracksCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         TrackService trackService = factory.getTrackService();
         List<Track> tracks = trackService.findPurchasedTracks(client.getId());
+        Collections.sort(tracks);
         request.setAttribute(TRACKS_PARAMETER, tracks);
         return new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);
     }

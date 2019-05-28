@@ -22,7 +22,6 @@ public class UserDao extends AbstractDao<User> {
     private static final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM users LEFT JOIN cashes " +
             "ON users.id=cashes.user_id WHERE users.login=? AND password=?;";
     private static final String UPDATE_CLIENT_CASH = "UPDATE cashes SET value=? WHERE user_id=?;";
-    private static final String FIND_CLIENT_CASH = "SELECT *FROM cashes WHERE user_id=?;";
     private static final String FIND_CASH = "SELECT *FROM cashes WHERE user_id=?;";
 
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);

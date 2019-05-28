@@ -24,7 +24,7 @@
             </li>
         </c:if>
         <c:if test="${user.getRole().getValue()=='admin'}">
-            <li><a href="music?command=add_audiotrack"><fmt:message key="button.addTrack"/></a></li>
+            <li><a href="music?command=add_track"><fmt:message key="button.addTrack"/></a></li>
         </c:if>
         <li style="float:right"><a href="music?command=logout"><fmt:message key="button.logout"/></a></li>
     </ul>
@@ -39,9 +39,9 @@
               <button class="currency" onclick="location.href='music?command=change_currency&currency=USD'">BYN</button>
           </div>
         </c:if>
-        <button onclick="myFunction()" class="dropbtn"><fmt:message key="button.menu"/></button>
+        <button onclick="showDropdown()" class="dropbtn"><fmt:message key="button.menu"/></button>
 
-        <div id="myDropdown" class="dropdown-content">
+        <div id="dropdownContent" class="dropdown-content">
             <a href="music?command=home"><fmt:message key="button.home"/></a>
             <a href="music?command=view_artists"><fmt:message key="button.artists"/></a>
             <a href="music?command=view_playlists"><fmt:message key="button.playlist"/></a>
@@ -50,7 +50,7 @@
                 <a href="music?command=cart"><fmt:message key="button.cart"/></a>
             </c:if>
             <c:if test="${user.getRole().getValue()=='admin'}">
-                <a href="music?command=add_audiotrack"><fmt:message key="button.addTrack"/></a>
+                <a href="music?command=add_track"><fmt:message key="button.addTrack"/></a>
             </c:if>
             <a href="music?command=logout"><fmt:message key="button.logout"/></a>
         </div>
@@ -58,8 +58,8 @@
 
     </div>
     <script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
+        function showDropdown() {
+            document.getElementById("dropdownContent").classList.toggle("show");
         }
 
         window.onclick = function (event) {

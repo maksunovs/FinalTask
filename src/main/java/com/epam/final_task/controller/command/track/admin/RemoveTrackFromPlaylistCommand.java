@@ -27,7 +27,7 @@ public class RemoveTrackFromPlaylistCommand implements Command {
         int trackId = Integer.parseInt(request.getParameter(TRACK_ID_PARAMETER));
         ServiceFactory factory = new ServiceFactory();
         PlaylistTrackService service = factory.PlaylistTrackservice();
-        Optional<PlaylistTrack> relation = service.findByPlaylistIdAndAudioTrackId(playlistId, trackId);
+        Optional<PlaylistTrack> relation = service.findByPlaylistIdAndTrackId(playlistId, trackId);
         if (relation.isPresent()) {
             int id = relation.get().getId();
             service.removeById(id);

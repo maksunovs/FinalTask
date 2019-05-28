@@ -38,6 +38,6 @@ public class DataValidatorTest {
         assertFalse(VALIDATOR.validateInputText("f"));
         assertTrue(VALIDATOR.validateInputText("909sd0d9f"));
         assertFalse(VALIDATOR.validateInputText("9-)(_"));
-        assertTrue(VALIDATOR.validateInputText("dgf"));
+        assertTrue(VALIDATOR.validateInputText("dg-f!/'"));
     }
 }

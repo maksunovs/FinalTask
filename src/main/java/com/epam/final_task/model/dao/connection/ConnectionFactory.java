@@ -40,8 +40,10 @@ public class ConnectionFactory {
 
     public Connection createConnection() throws ConnectionException {
         try {
+            LOGGER.debug(1);
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
+            LOGGER.debug(2);
             LOGGER.error(e.getMessage());
             throw new ConnectionException("Connection creating error", e);
         }

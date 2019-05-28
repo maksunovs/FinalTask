@@ -14,20 +14,20 @@ public class PlaylistTrackServiceImpl implements PlaylistTrackService {
     private static final Logger LOGGER = Logger.getLogger(PlaylistTrackServiceImpl.class);
 
 
-    public void save(int playlistId, int audioTrackId) throws ServiceException {
+    public void save(int playlistId, int cartTrackId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             PlaylistTrackDao dao = factory.getPlaylistTrackDao();
-            dao.save(new PlaylistTrack(playlistId, audioTrackId));
+            dao.save(new PlaylistTrack(playlistId, cartTrackId));
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
             throw new ServiceException("Failed to save relation", e);
         }
     }
 
-    public Optional<PlaylistTrack> findByPlaylistIdAndAudioTrackId(int playlistId, int audiotrackId) throws ServiceException {
+    public Optional<PlaylistTrack> findByPlaylistIdAndTrackId(int playlistId, int trackId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             PlaylistTrackDao dao = factory.getPlaylistTrackDao();
-            return dao.findRelationByPlaylistIdAndTrackId(playlistId, audiotrackId);
+            return dao.findRelationByPlaylistIdAndTrackId(playlistId, trackId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
             throw new ServiceException("Failed to find relation", e);

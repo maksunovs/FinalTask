@@ -1,19 +1,19 @@
 package com.epam.final_task.model.entity;
 
 
-public class OrderTrack extends Entity {
+public class CartTrack extends Entity {
     private Integer id;
-    private Integer orderId;
+    private Integer cartId;
     private Integer trackId;
 
-    public OrderTrack(Integer orderId, Integer trackId) {
-        this.orderId = orderId;
+    public CartTrack(Integer cartId, Integer trackId) {
+        this.cartId = cartId;
         this.trackId = trackId;
     }
 
-    public OrderTrack(Integer id, Integer orderId, Integer trackId) {
+    public CartTrack(Integer id, Integer cartId, Integer trackId) {
         this.id = id;
-        this.orderId = orderId;
+        this.cartId = cartId;
         this.trackId = trackId;
     }
 
@@ -21,8 +21,8 @@ public class OrderTrack extends Entity {
         return id;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getCartId() {
+        return cartId;
     }
 
     public Integer getTrackId() {
@@ -37,10 +37,10 @@ public class OrderTrack extends Entity {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        OrderTrack orderTrack = (OrderTrack) object;
-        return this.id.equals(orderTrack.id) &&
-                this.orderId.equals(orderTrack.orderId) &&
-                this.trackId.equals(orderTrack.trackId);
+        CartTrack cartTrack = (CartTrack) object;
+        return this.id.equals(cartTrack.id) &&
+                this.cartId.equals(cartTrack.cartId) &&
+                this.trackId.equals(cartTrack.trackId);
     }
 
     @Override
@@ -48,16 +48,16 @@ public class OrderTrack extends Entity {
         int prime = 31;
         int hash = 1;
         hash = hash * prime + (id == null ? 0 : id);
-        hash = hash * prime + (orderId == null ? 0 : orderId);
+        hash = hash * prime + (cartId == null ? 0 : cartId);
         hash = hash * prime + (trackId == null ? 0 : trackId);
         return hash * prime;
     }
 
     @Override
     public String toString() {
-        return "OrderTrack{" +
+        return "CartTrack{" +
                 "id=" + id +
-                ", orderId=" + orderId +
+                ", cartId=" + cartId +
                 ", trackId=" + trackId +
                 '}';
     }

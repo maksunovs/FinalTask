@@ -22,7 +22,7 @@ public class EditPlaylistCommand implements Command {
     private static final String ID_PARAMETER = "id";
 
     private static final String PLAYLIST_ATTRIBUTE = "playlist";
-    private static final String TRACKS_ATTRIBUTE = "audiotracks";
+    private static final String TRACKS_ATTRIBUTE = "tracks";
 
     private static final String PLAYLISTS_PAGE = "music?command=view_playlists";
 

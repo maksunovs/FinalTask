@@ -24,8 +24,8 @@
 
     <form action="music?command=save_artist" method="post" accept-charset="UTF-8">
         <h3 style="margin: 0"><fmt:message key="text.newArtist"/></h3>
-        <input placeholder="<fmt:message key="form.newArtist.input.name"/>" type="text" name="name" tabindex="1" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s){1,90}" required autofocus><br/>
-        <input placeholder="<fmt:message key="form.newArtist.input.country"/>" type="text" name="country" tabindex="2" pattern="\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\s){1,90}" required><br/>
+        <input placeholder="<fmt:message key="form.newArtist.input.name"/>" type="text" name="name" tabindex="1" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё!\./'-]|\s){1,89}" required autofocus><br/>
+        <input placeholder="<fmt:message key="form.newArtist.input.country"/>" type="text" name="country" tabindex="2" pattern="\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\s){1,89}" required><br/>
         <button name="submit" type="submit"><fmt:message key="button.save"/></button>
     </form>
 </div>

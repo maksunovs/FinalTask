@@ -30,6 +30,7 @@
                 title="<fmt:message key="button.title.delete.artist"/>"><i
                 style="font-size:13px;" class='fas fa-trash-alt'></i></button>
     </c:if>
+    <br/><span style="font-size: 14px; color: #888888"><c:out value="${artist.getCountry()}"/></span>
     <br/><br/>
     <div class="page-nav">
         <a href="music?command=view_artist&id=${artist.getId()}"><fmt:message key="artist.link.tracks"/></a>
@@ -38,7 +39,7 @@
     <br/>
     <c:if test="${user.getRole().getValue()=='admin'}">
         <form action="music?command=save_album&artist_id=${artist.getId()}" method="post">
-            <input type="text" name="title" placeholder="<fmt:message key="form.newAlbum.input"/>" required pattern="\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\s){1,90}"/>
+            <input type="text" name="title" placeholder="<fmt:message key="form.newAlbum.input"/>" required pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё!\./'-]|\s){1,89}"/>
             <button id="add_button" type="submit"><fmt:message key="button.add"/></button>
         </form>
     </c:if>

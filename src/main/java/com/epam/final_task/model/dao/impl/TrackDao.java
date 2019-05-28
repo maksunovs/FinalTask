@@ -35,7 +35,7 @@ public class TrackDao extends AbstractDao<Track> {
     private static final String FIND_PURCHASED_TRACKS = "SELECT * FROM tracks JOIN artists ON tracks.artist_id=artists.id" +
             " WHERE tracks.id IN " +
             "(SELECT  track_id FROM users_tracks WHERE user_id=?);";
-    private static final String FIND_ORDERED = "SELECT * FROM tracks JOIN artists ON tracks.artist_id=artists.id " +
+    private static final String FIND_IN_CART = "SELECT * FROM tracks JOIN artists ON tracks.artist_id=artists.id " +
             "WHERE tracks.id IN " +
             "(SELECT  track_id FROM orders_tracks WHERE order_id=?);";
     public TrackDao(Connection connection, Builder<Track> builder) {
@@ -63,8 +63,8 @@ public class TrackDao extends AbstractDao<Track> {
     public List<Track> findByArtistId(int id) throws DaoException {
         return executeQuery(FIND_BY_ARTIST_ID, id);
     }
-    public List<Track> findOrderedTracks(int orderId) throws DaoException {
-        return executeQuery(FIND_ORDERED,orderId);
+    public List<Track> findTracksInCart(int cartId) throws DaoException {
+        return executeQuery(FIND_IN_CART,cartId);
     }
     @Override
     public List<Track> findAll() throws DaoException {

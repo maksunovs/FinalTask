@@ -27,15 +27,15 @@
                             <form  action="music?command=buy_track&track_id=${track.getId()}" method="post">
                                 <button value="${param.track.getPrice()}" id="buy" type="submit" onclick="check(this)"
                                         title="<fmt:message key="button.title.buy"/>"><i
-                                        class='fas fa-cart-arrow-down'></i>
+                                         class='fas fa-plus'></i>
                                 </button>
                             </form>
                             <button onclick="location.href='music?command=add_to_cart&track_id=${track.getId()}'"
                                     title="<fmt:message key="button.title.addToCart"/>"><i
-                                    class='fas fa-plus'></i>
+                                    class='fas fa-cart-arrow-down'></i>
                             </button>
                         </c:when>
-                        <c:when test="${track.getState().getValue()=='ordered'}">
+                        <c:when test="${track.getState().getValue()=='in_cart'}">
                             <span><fmt:message key="text.inCart"/></span>
                         </c:when>
                     </c:choose>
@@ -43,7 +43,7 @@
 
                 <c:when test="${user.getRole().getValue()=='admin'}">
 
-                    <button onclick="location.href='music?command=delete_audiotrack&id=${track.getId()}'"
+                    <button onclick="location.href='music?command=delete_track&id=${track.getId()}'"
                             title="<fmt:message key="button.title.delete.track"/>"><i
                             class='fas fa-trash-alt'></i>
                     </button>

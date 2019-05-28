@@ -2,7 +2,7 @@ package com.epam.final_task.model.entity;
 
 public enum TrackState {
     PURCHASED("purchased"),
-    ORDERED("ordered"),
+    IN_CART("in_cart"),
     IN_STORE("in_store");
 
     private String value;

@@ -22,7 +22,7 @@
 <div align=center class="content">
     <br/>
 
-    <form action="music?command=save_audiotrack" method="post" accept-charset="UTF-8">
+    <form action="music?command=save_track" method="post" accept-charset="UTF-8">
         <h3 style="margin: 0"><fmt:message key="text.newTrack"/></h3>
         <select name="artist_id" required>
             <option hidden><fmt:message key="form.newTrack.input.artist"/></option>
@@ -30,7 +30,7 @@
                 <option value="${artist.getId().toString()}"><c:out value="${artist.getName()}"/></option>
             </c:forEach>
         </select><br/>
-        <input placeholder="<fmt:message key="form.newTrack.input.title"/>" type="text" name="title" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\s){1,90}" tabindex="2" required><br/>
+        <input placeholder="<fmt:message key="form.newTrack.input.title"/>" type="text" name="title" pattern="\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё!\./'-]|\s){1,89}" tabindex="2" required><br/>
         <select name="genre" required>
             <option hidden><fmt:message key="form.newTrack.input.genre"/></option>
             <option value="Pop">Pop</option>

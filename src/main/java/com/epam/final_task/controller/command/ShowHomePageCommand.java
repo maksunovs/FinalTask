@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 public class ShowHomePageCommand implements Command {
@@ -40,6 +41,7 @@ public class ShowHomePageCommand implements Command {
         } else {
             tracks = trackService.findAll();
         }
+        Collections.sort(tracks);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_ATTRIBUTE);
         if (user.getRole() == Role.CLIENT) {

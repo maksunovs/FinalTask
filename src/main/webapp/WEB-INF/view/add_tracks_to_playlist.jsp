@@ -22,15 +22,15 @@
             ><fmt:message key="playlist.edit.button.back"/>
     </button>
     <br/>
-    <span style="font-size: 20px; margin: 0 10px; border-bottom: 1px solid; border-color: #ccc;"><c:out
+    <span style="font-size: 20px;  border-bottom: 1px solid; border-color: #ccc;"><c:out
             value="${playlist.getTitle()}"/></span>
     <br/><br/>
-    <c:forEach var="audiotrack" items="${audiotracks}">
+    <c:forEach var="track" items="${tracks}">
         <div style="display: flex; height: 37px;">
-            <c:set var="track" value="${audiotrack}" scope="request"/>
+            <c:set var="track" value="${track}" scope="request"/>
             <jsp:include page="track.jsp"/>
             <button id="edit_button"
-                    onclick="location.href='music?command=add_track_to_playlist&playlist_id=${playlist.getId()}&audiotrack_id=${audiotrack.getId()}'"
+                    onclick="location.href='music?command=add_track_to_playlist&playlist_id=${playlist.getId()}&track_id=${track.getId()}'"
                     title="<fmt:message key="button.title.add.toPlaylist"/>"><fmt:message key="button.add"/>
             </button>
         </div>

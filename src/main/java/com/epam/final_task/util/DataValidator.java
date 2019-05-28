@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class DataValidator {
 
     private static final Pattern VALUE_PATTERN = Pattern.compile("[1-9][0-9]{0,6}(\\.[0-9]{1,2})?");
-    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("\\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё]|\\s){1,90}");
+    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("\\s*([0-9]|[A-Za-zА-Яа-яЁё])([0-9]|[A-Za-zА-Яа-яЁё\\-\\./']|\\s){1,90}");
     private static final Pattern COUNTRY_NAME_PATTERN = Pattern.compile("\\s*[A-Za-zА-Яа-яЁё]([A-Za-zА-Яа-яЁё]|\\s){1,90}");
 
     public Boolean validateCountyName(String country) {

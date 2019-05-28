@@ -15,7 +15,7 @@ import java.io.IOException;
 public class AddTrackToPlaylistCommand implements Command {
 
     private static final String PLAYLIST_ID_PARAMETER = "playlist_id";
-    private static final String TRACK_ID_PARAMETER = "audiotrack_id";
+    private static final String TRACK_ID_PARAMETER = "track_id";
 
     private static final String REFERER = "referer";
 

@@ -38,6 +38,12 @@
                     <button onclick="location.href='music?command=home&genre=Jazz'">Jazz</button>
                 </li>
                 <li>
+                    <button onclick="location.href='music?command=home&genre=Punk'">Punk</button>
+                </li>
+                <li>
+                    <button onclick="location.href='music?command=home&genre=Indie'">Indie</button>
+                </li>
+                <li>
                     <button onclick="location.href='music?command=home&genre=Dance'">Dance</button>
                 </li>
             </ul>

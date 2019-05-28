@@ -34,7 +34,7 @@
                 <form action="music?command=buy_track&track_id=${track.getId()}" method="post">
                     <button value="${track.getPrice()}" id="buy" type="submit" onclick="check(this)"
                             title="<fmt:message key="button.title.buy"/>"><i
-                            class='fas fa-cart-arrow-down'></i>
+                            class='fas fa-plus'></i>
                     </button>
                 </form>
             </div>
@@ -47,9 +47,9 @@
     </c:forEach>
     <br/>
     <div style="width: 90%; display: flex;">
-        <form action="music?command=pay_order" method="get">
+        <form action="music?command=pay_cart" method="post">
 
-        <button value="${value}" style=" padding: 4px 10px; " id="add_button" onclick=check(this)><fmt:message key="button.pay"/></button>
+        <button value="${value}" style=" padding: 4px 10px; " type="submit" id="add_button" onclick=check(this)><fmt:message key="button.pay"/></button>
         </form>
         <div style="padding: 4px 20px;"><ctg:currencystamp value="${value}"/></div>
     </div>

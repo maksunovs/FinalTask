@@ -2,16 +2,16 @@ package com.epam.final_task.model.entity;
 
 
 
-public class Order extends Entity {
+public class Cart extends Entity {
 
     private Integer id;
     private Integer userId;
 
-    public Order(Integer userId) {
+    public Cart(Integer userId) {
         this.userId = userId;
     }
 
-    public Order(Integer id, Integer userId) {
+    public Cart(Integer id, Integer userId) {
         this.id = id;
         this.userId = userId;
     }
@@ -32,9 +32,9 @@ public class Order extends Entity {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Order order = (Order) object;
-        return this.id.equals(order.id) &&
-                this.userId.equals(order.id);
+        Cart cart = (Cart) object;
+        return this.id.equals(cart.id) &&
+                this.userId.equals(cart.id);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Order extends Entity {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Cart{" +
                 "id=" + id +
                 ", userId=" + userId +
                 '}';

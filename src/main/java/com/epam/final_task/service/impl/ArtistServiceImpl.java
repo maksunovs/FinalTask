@@ -19,12 +19,16 @@ public class ArtistServiceImpl implements ArtistService {
     public void save(Artist artist) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             ArtistDao artistDao = factory.getArtistDao();
-            artistDao.save(artist);
+            Optional<Artist> artistExist = artistDao.findByName(artist.getName());
+            if (!artistExist.isPresent()) {
+                artistDao.save(artist);
+            }
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
             throw new ServiceException("Failed to save artist", e);
         }
     }
+
 
     public Optional<Artist> findById(int id) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {

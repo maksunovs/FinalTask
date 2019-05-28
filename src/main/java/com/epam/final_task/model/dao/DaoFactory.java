@@ -29,8 +29,8 @@ public class DaoFactory implements AutoCloseable {
         return new UserTrackDao(connection, new UserTrackBuilder());
     }
 
-    public OrderDao getOrderDao() {
-        return new OrderDao(connection, new OrderBuilder());
+    public CartDao getCartDao() {
+        return new CartDao(connection, new CartBuilder());
     }
 
     public ArtistDao getArtistDao() {
@@ -53,8 +53,8 @@ public class DaoFactory implements AutoCloseable {
         return new PlaylistDao(connection, new PlaylistBuilder());
     }
 
-    public OrderTrackDao getOrderTrackDao() {
-        return new OrderTrackDao(connection, new OrderTrackBuilder());
+    public CartTrackDao getCartTrackDao() {
+        return new CartTrackDao(connection, new CartTrackBuilder());
     }
 
     public void startTransaction() throws DaoException {

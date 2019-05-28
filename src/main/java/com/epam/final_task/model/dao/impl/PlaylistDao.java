@@ -11,8 +11,6 @@ import java.util.Map;
 public class PlaylistDao extends AbstractDao<Playlist> {
 
     private static final String TABLE_NAME = "playlists";
-    private static final String FIND_ALL = "SELECT *FROM playlists";
-    private static final String FIND_BY_ID = "SELECT *FROM playlists WHERE id=?;";
 
     public PlaylistDao(Connection connection, Builder<Playlist> builder) {
         super(connection, builder);

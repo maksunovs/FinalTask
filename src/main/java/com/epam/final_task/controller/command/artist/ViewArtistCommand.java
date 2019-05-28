@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,7 @@ public class ViewArtistCommand implements Command {
             if (user.getRole() == Role.CLIENT) {
                 initializer.initializeStates(tracks, (Client) user);
             }
+            Collections.sort(tracks);
             request.setAttribute(ARTIST_ATTRIBUTE, artist.get());
             request.setAttribute(TRACKS_ATTRIBUTE, tracks);
             responseContent = new ResponseContent(ResponseType.FORWARD, CONTENT_PATH);

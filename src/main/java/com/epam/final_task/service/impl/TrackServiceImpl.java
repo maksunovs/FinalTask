@@ -137,10 +137,10 @@ public class TrackServiceImpl implements TrackService {
         }
     }
 
-    public List<Track> findOrderedTracks(int orderId) throws ServiceException {
+    public List<Track> findTracksInCart(int cartId) throws ServiceException {
         try (DaoFactory factory = new DaoFactory()) {
             TrackDao trackDao = factory.getTrackDao();
-            return trackDao.findOrderedTracks(orderId);
+            return trackDao.findTracksInCart(cartId);
         } catch (DaoException e) {
             LOGGER.error(e.getMessage());
             throw new ServiceException("Failed to upload tracks", e);
@@ -162,11 +162,11 @@ public class TrackServiceImpl implements TrackService {
             try {
                 TrackDao trackDao = factory.getTrackDao();
                 List<Track> purchasedTracks = trackDao.findPurchasedTracks(user.getId());
-                OrderDao orderDao = factory.getOrderDao();
-                Optional<Order> order = orderDao.findByUserId(user.getId());
-                List<Track> orderedTracks = new ArrayList<>();
-                if (order.isPresent()) {
-                    orderedTracks = trackDao.findOrderedTracks(order.get().getId());
+                CartDao cartDao = factory.getCartDao();
+                Optional<Cart> cart = cartDao.findByUserId(user.getId());
+                List<Track> tarcksInCart = new ArrayList<>();
+                if (cart.isPresent()) {
+                    tarcksInCart = trackDao.findTracksInCart(cart.get().getId());
                 }
                 BigDecimal trackPrice = track.getPrice();
                 UserDao userDao = factory.getUserDAO();
@@ -176,11 +176,11 @@ public class TrackServiceImpl implements TrackService {
                 }
 
                 factory.startTransaction();
-                if (orderedTracks.contains(track)) {
-                    OrderTrackDao orderTrackDao = factory.getOrderTrackDao();
-                    Optional<OrderTrack> orderTrack = orderTrackDao.findByOrderIdAndTrackId(order.get().getId(), track.getId());
-                    if (orderTrack.isPresent()) {
-                        orderTrackDao.removeById(orderTrack.get().getId());
+                if (tarcksInCart.contains(track)) {
+                    CartTrackDao cartTrackDao = factory.getCartTrackDao();
+                    Optional<CartTrack> cartTrack = cartTrackDao.findByCartIdAndTrackId(cart.get().getId(), track.getId());
+                    if (cartTrack.isPresent()) {
+                        cartTrackDao.removeById(cartTrack.get().getId());
                     }
                 }
                 UserTrackDao userTrackDao = factory.getUserTrackDao();

@@ -43,7 +43,7 @@
 
             <c:if test="${user.getRole().getValue()=='admin'}">
                 <button id="edit_button"
-                        onclick="location.href='music?command=remove_audiotrack_from_playlist&playlist_id=${playlist.getId()}&track_id=${track.getId()}'"
+                        onclick="location.href='music?command=remove_track_from_playlist&playlist_id=${playlist.getId()}&track_id=${track.getId()}'"
                         title="<fmt:message key="button.title.remove.fromPlaylist"/>"><fmt:message key="button.remove"/>
                 </button>
             </c:if>

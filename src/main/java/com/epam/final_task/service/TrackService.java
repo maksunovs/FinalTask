@@ -33,7 +33,7 @@ public interface TrackService {
 
     List<Track> findPurchasedTracks(int userId) throws ServiceException;
 
-    List<Track> findOrderedTracks(int orderId) throws ServiceException;
+    List<Track> findTracksInCart(int cartId) throws ServiceException;
 
     Optional<Track> findById(int id) throws ServiceException;
 

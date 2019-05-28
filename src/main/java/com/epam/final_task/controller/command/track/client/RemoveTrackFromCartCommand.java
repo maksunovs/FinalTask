@@ -2,12 +2,12 @@ package com.epam.final_task.controller.command.track.client;
 
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
-import com.epam.final_task.model.entity.Order;
-import com.epam.final_task.model.entity.OrderTrack;
+import com.epam.final_task.model.entity.Cart;
+import com.epam.final_task.model.entity.CartTrack;
 import com.epam.final_task.model.entity.ResponseType;
 import com.epam.final_task.model.entity.User;
-import com.epam.final_task.service.OrderService;
-import com.epam.final_task.service.OrderTrackService;
+import com.epam.final_task.service.CartService;
+import com.epam.final_task.service.CartTrackService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.exception.ServiceException;
 
@@ -33,14 +33,14 @@ public class RemoveTrackFromCartCommand implements Command {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_ATTRIBUTE);
         ServiceFactory factory = new ServiceFactory();
-        OrderService orderService = factory.getOrderService();
-        Optional<Order> order = orderService.findByUserId(user.getId());
+        CartService cartService = factory.getCartService();
+        Optional<Cart> cart = cartService.findByUserId(user.getId());
         ResponseContent responseContent;
-        if (order.isPresent()) {
-            OrderTrackService orderTrackService = factory.getOrderTrackService();
-            Optional<OrderTrack> orderTrack = orderTrackService.findByOrderIdAndTrackId(order.get().getId(), trackId);
-            if (orderTrack.isPresent()) {
-                orderTrackService.removeById(orderTrack.get().getId());
+        if (cart.isPresent()) {
+            CartTrackService cartTrackService = factory.getCartTrackService();
+            Optional<CartTrack> cartTrack = cartTrackService.findByCartIdAndTrackId(cart.get().getId(), trackId);
+            if (cartTrack.isPresent()) {
+                cartTrackService.removeById(cartTrack.get().getId());
             }
             responseContent = new ResponseContent(ResponseType.REDIRECT, CONTENT_PATH);
         } else {
