@@ -33,8 +33,8 @@ public class SaveTrackCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int artistId = Integer.parseInt(request.getParameter(ARTIST_ID_PARAMETER));
-        String title = request.getParameter(TITLE_PARAMETER);
-        String genre = request.getParameter(GENRE_PARAMETER);
+        String title = request.getParameter(TITLE_PARAMETER).trim();
+        String genre = request.getParameter(GENRE_PARAMETER).trim();
         String stringPrice = request.getParameter(PRICE_PARAMETER);
         ServiceFactory factory = new ServiceFactory();
         TrackService service = factory.getTrackService();

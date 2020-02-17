@@ -9,8 +9,8 @@
     <a href="music?command=change_language&language=RU">RU</a>
 </footer>
 <script>
-    var header = document.getElementsByTagName("footer");
-    var links = header[0].getElementsByTagName("a");
+    var footer = document.getElementsByTagName("footer");
+    var links = footer[0].getElementsByTagName("a");
     for (var i = 0; i < links.length; i++) {
         if (links[i].textContent === "${pageContext.session.getAttribute("language").name()}") {
             links[i].className += " current";

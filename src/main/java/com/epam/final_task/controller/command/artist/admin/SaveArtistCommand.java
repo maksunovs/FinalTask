@@ -29,8 +29,8 @@ public class SaveArtistCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String name = request.getParameter(NAME_PARAMETER);
-        String country = request.getParameter(COUNTRY_PARAMETER);
+        String name = request.getParameter(NAME_PARAMETER).trim();
+        String country = request.getParameter(COUNTRY_PARAMETER).trim();
         ServiceFactory factory = new ServiceFactory();
         ArtistService service = factory.getArtistService();
         if (validator.validateInputText(name) && validator.validateCountyName(country)) {

@@ -28,12 +28,11 @@ public class SavePlaylistCommand implements Command {
 
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
-        String title = request.getParameter(TITLE_PARAMETER);
-        Playlist playlist = new Playlist(title);
+        String title = request.getParameter(TITLE_PARAMETER).trim();
         ServiceFactory factory = new ServiceFactory();
         PlaylistService service = factory.getPlaylistService();
         if (validator.validateInputText(title)) {
-            service.save(playlist);
+            service.save(new Playlist(title));
         }
         return new ResponseContent(ResponseType.REDIRECT, CONTENT_PATH);
     }

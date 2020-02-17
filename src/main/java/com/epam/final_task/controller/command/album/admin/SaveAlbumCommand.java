@@ -28,7 +28,7 @@ public class SaveAlbumCommand implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServiceException {
         int artistId = Integer.parseInt(request.getParameter(ARTIST_ID_PARAMETER));
-        String title = request.getParameter(TITLE_PARAMETER);
+        String title = request.getParameter(TITLE_PARAMETER).trim();
         ServiceFactory factory = new ServiceFactory();
         AlbumService service = factory.getAlbumService();
         if (validator.validateInputText(title)) {
