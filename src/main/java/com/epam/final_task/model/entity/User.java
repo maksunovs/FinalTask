@@ -1,11 +1,11 @@
 package com.epam.final_task.model.entity;
 
 
-import com.epam.final_task.model.entity.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -26,8 +26,16 @@ public class User implements Serializable {
 
     private String email;
 
+    private BigDecimal cash;
+
     @Column(name = "active")
     private boolean isActive;
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Track> tracks;
 
     @ManyToMany
     @JoinTable(
