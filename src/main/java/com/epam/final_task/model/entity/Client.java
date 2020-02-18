@@ -1,7 +1,18 @@
 package com.epam.final_task.model.entity;
 
+import com.epam.final_task.model.entity.enums.Role;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import net.bytebuddy.implementation.bind.annotation.SuperCall;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Data
+@Table(name = "users")
 public class Client extends User {
 
     private BigDecimal cash;
@@ -15,43 +26,8 @@ public class Client extends User {
         super(id, login, password, name, surname, role);
     }
 
-    public void setCash(BigDecimal cash) {
-        this.cash = cash;
-    }
 
-    public BigDecimal getCash() {
-        return cash;
-    }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        if (!super.equals(object)) {
-            return false;
-        }
-        Client client = (Client) object;
-        return this.cash.equals(client.cash);
-    }
 
-    @Override
-    public int hashCode() {
-        int prime = 31;
-        int hash = 1;
-        hash = hash * prime + super.hashCode();
-        hash = hash * prime + (cash == null ? 0 : cash.intValue());
-        return hash * prime;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "cash=" + cash +
-                super.toString() +
-                '}';
-    }
 }
+

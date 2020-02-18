@@ -1,15 +1,34 @@
 package com.epam.final_task.model.entity;
 
-public enum Role {
-    CLIENT("client"),
-    ADMIN("admin");
-    private String value;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-    Role(String value) {
-        this.value = value;
-    }
+import javax.persistence.*;
+import java.util.List;
 
-    public String getValue() {
-        return value;
-    }
+@Entity
+@Data
+@Table(name = "roles")
+public class Role {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<User> users;
+
+    @ManyToMany
+    @JoinTable(
+            name = "roles_privileges",
+            joinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "privilege_id", referencedColumnName = "id"))
+    private List<Privilege> privileges;
 }

@@ -1,8 +1,8 @@
 package com.epam.final_task.controller.command;
 
 import com.epam.final_task.controller.ResponseContent;
-import com.epam.final_task.model.entity.Currency;
-import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.model.entity.enums.Currency;
+import com.epam.final_task.model.entity.enums.ResponseType;
 import com.epam.final_task.service.exception.ServiceException;
 
 import javax.servlet.ServletException;

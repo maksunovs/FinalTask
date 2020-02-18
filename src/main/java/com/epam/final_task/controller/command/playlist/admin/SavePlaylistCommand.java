@@ -3,7 +3,7 @@ package com.epam.final_task.controller.command.playlist.admin;
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.Playlist;
-import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.model.entity.enums.ResponseType;
 import com.epam.final_task.service.PlaylistService;
 import com.epam.final_task.service.ServiceFactory;
 import com.epam.final_task.service.exception.ServiceException;

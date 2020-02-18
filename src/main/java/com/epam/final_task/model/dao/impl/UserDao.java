@@ -6,6 +6,8 @@ import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.entity.User;
 import com.epam.final_task.util.Hasher;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -14,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+
+@Component
 public class UserDao extends AbstractDao<User> {
     private static final String TABLE_NAME = "users";
     private static final String FIND_ALL = "SELECT * FROM users LEFT JOIN cashes " +
@@ -59,6 +63,9 @@ public class UserDao extends AbstractDao<User> {
         }
     }
 
+    public User findByLogin(String login) {
+        return new User();
+    }
 
     @Override
     protected Map<String, Object> getParameters(User user) {

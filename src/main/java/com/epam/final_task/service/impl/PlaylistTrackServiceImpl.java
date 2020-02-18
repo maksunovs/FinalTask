@@ -2,8 +2,6 @@ package com.epam.final_task.service.impl;
 
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.impl.PlaylistTrackDao;
-import com.epam.final_task.model.entity.PlaylistTrack;
 import com.epam.final_task.service.PlaylistTrackService;
 import com.epam.final_task.service.exception.ServiceException;
 import org.apache.log4j.Logger;

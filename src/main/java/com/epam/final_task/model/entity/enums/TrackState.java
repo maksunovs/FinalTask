@@ -1,4 +1,4 @@
-package com.epam.final_task.model.entity;
+package com.epam.final_task.model.entity.enums;
 
 public enum TrackState {
     PURCHASED("purchased"),

@@ -1,6 +1,5 @@
 package com.epam.final_task.service;
 
-import com.epam.final_task.model.entity.CartTrack;
 import com.epam.final_task.service.exception.ServiceException;
 
 import java.util.Optional;

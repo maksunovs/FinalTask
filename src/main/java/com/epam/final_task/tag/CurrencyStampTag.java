@@ -1,6 +1,6 @@
 package com.epam.final_task.tag;
 
-import com.epam.final_task.model.entity.Currency;
+import com.epam.final_task.model.entity.enums.Currency;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;

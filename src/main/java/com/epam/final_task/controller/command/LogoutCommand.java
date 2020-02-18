@@ -1,7 +1,7 @@
 package com.epam.final_task.controller.command;
 
 import com.epam.final_task.controller.ResponseContent;
-import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.model.entity.enums.ResponseType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

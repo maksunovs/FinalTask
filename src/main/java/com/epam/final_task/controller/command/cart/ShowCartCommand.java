@@ -3,7 +3,7 @@ package com.epam.final_task.controller.command.cart;
 import com.epam.final_task.controller.ResponseContent;
 import com.epam.final_task.controller.command.Command;
 import com.epam.final_task.model.entity.Cart;
-import com.epam.final_task.model.entity.ResponseType;
+import com.epam.final_task.model.entity.enums.ResponseType;
 import com.epam.final_task.model.entity.Track;
 import com.epam.final_task.model.entity.User;
 import com.epam.final_task.service.CartService;

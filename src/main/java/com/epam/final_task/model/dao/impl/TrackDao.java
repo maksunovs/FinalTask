@@ -96,7 +96,7 @@ public class TrackDao extends AbstractDao<Track> {
     @Override
     protected Map<String, Object> getParameters(Track track) {
         Map<String, Object> parameters = new LinkedHashMap<>();
-        parameters.put("artist_id", track.getArtistId());
+        parameters.put("artist_id", track.getArtist());
         parameters.put("title", track.getTitle());
         parameters.put("genre", track.getGenre());
         parameters.put("price", track.getPrice());

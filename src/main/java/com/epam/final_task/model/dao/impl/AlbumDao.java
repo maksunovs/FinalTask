@@ -1,6 +1,5 @@
 package com.epam.final_task.model.dao.impl;
 
-import com.epam.final_task.builder.Builder;
 import com.epam.final_task.model.dao.AbstractDao;
 import com.epam.final_task.model.dao.exception.DaoException;
 import com.epam.final_task.model.entity.Album;

@@ -2,8 +2,6 @@ package com.epam.final_task.service.impl;
 
 import com.epam.final_task.model.dao.DaoFactory;
 import com.epam.final_task.model.dao.exception.DaoException;
-import com.epam.final_task.model.dao.impl.CartTrackDao;
-import com.epam.final_task.model.entity.CartTrack;
 import com.epam.final_task.service.CartTrackService;
 import com.epam.final_task.service.exception.ServiceException;
 import org.apache.log4j.Logger;
