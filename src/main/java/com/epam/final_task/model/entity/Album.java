@@ -1,6 +1,7 @@
 package com.epam.final_task.model.entity;
 
 
+@javax.persistence.Entity
 public class Album extends Entity {
     private Integer id;
     private String title;
